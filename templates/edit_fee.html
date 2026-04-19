@@ -1,0 +1,231 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Fee - {{ lawyer.name }}{% endblock %}
+
+{% block content %}
+<!-- Animated Background Elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-brand-gold/10 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-brand-navy/5 rounded-full blur-3xl animate-zoom-slow"></div>
+    <div class="absolute top-1/2 left-1/2 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+</div>
+
+<!-- Centered Content Container -->
+<div class="min-h-screen flex items-center justify-center p-4 md:p-6">
+    
+    <!-- Form Card -->
+    <div class="card-elevate w-full max-w-md bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-fade-in-up">
+        
+        <!-- Card Header -->
+        <div class="bg-gradient-to-br from-brand-navy to-slate-900 p-6 md:p-8 text-center relative overflow-hidden">
+            <!-- Decorative Circle -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gold/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+            
+            <div class="relative z-10">
+                <div class="w-16 h-16 bg-brand-gold/20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-brand-gold/20">
+                    <svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h1 class="font-serif text-2xl md:text-3xl text-white font-light mb-2">
+                    Edit <span class="font-semibold gradient-text">Consultation Fee</span>
+                </h1>
+                <p class="text-slate-300 text-sm font-light mb-4">Update lawyer consultation pricing</p>
+                
+                <!-- Lawyer Name Badge -->
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-md rounded-full border border-white/20">
+                    <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                    </svg>
+                    <span class="text-white text-sm font-medium">{{ lawyer.name }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Form Body -->
+        <div class="p-6 md:p-8">
+            <form method="POST" class="space-y-6" id="edit-fee-form">
+                
+                <!-- Fee Input -->
+                <div class="space-y-2">
+                    <label for="consultation_fee" class="block text-sm font-semibold text-slate-700">
+                        Consultation Fee <span class="text-red-500">*</span>
+                    </label>
+                    <div class="relative group">
+                        <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                            <span class="text-slate-500 font-semibold text-lg">₹</span>
+                        </div>
+                        <input 
+                            type="number" 
+                            id="consultation_fee" 
+                            name="consultation_fee" 
+                            value="{{ lawyer.consultation_fee }}" 
+                            class="w-full pl-10 pr-4 py-3.5 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-semibold text-slate-800 placeholder-slate-400 hover:border-slate-400"
+                            placeholder="0"
+                            min="0"
+                            required>
+                        <div class="absolute inset-y-0 right-0 pr-4 flex items-center pointer-events-none">
+                            <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <p class="text-xs text-slate-500 flex items-center gap-1">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Enter fee in INR (₹)
+                    </p>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-3 pt-4">
+                    <button 
+                        type="submit" 
+                        id="submit-btn"
+                        class="btn-scale w-full px-8 py-4 bg-gradient-to-r from-brand-navy to-brand-gold text-white font-semibold rounded-lg hover:from-brand-gold hover:to-brand-navy shadow-lg shadow-brand-gold/30 transition-all flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                        <span id="btn-text">Update Fee</span>
+                        <svg id="btn-spinner" class="animate-spin w-5 h-5 hidden" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                    
+                    <a href="/admin/lawyers" class="btn-scale w-full px-8 py-3.5 bg-white border-2 border-slate-200 text-slate-700 font-semibold rounded-lg hover:border-brand-navy hover:text-brand-navy transition-all flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Back to Lawyers
+                    </a>
+                </div>
+
+            </form>
+
+            <!-- Security Note -->
+            <div class="mt-6 pt-6 border-t border-slate-200 text-center">
+                <p class="text-xs text-slate-500 flex items-center justify-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    Changes are saved securely
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Form JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('edit-fee-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+    const btnSpinner = document.getElementById('btn-spinner');
+    
+    if (form && submitBtn) {
+        form.addEventListener('submit', function() {
+            submitBtn.disabled = true;
+            btnText.textContent = 'Updating...';
+            btnSpinner.classList.remove('hidden');
+        });
+    }
+    
+    // Input Focus Animation
+    const input = document.getElementById('consultation_fee');
+    if (input) {
+        input.addEventListener('focus', function() {
+            this.parentElement.classList.add('scale-[1.02]');
+        });
+        input.addEventListener('blur', function() {
+            this.parentElement.classList.remove('scale-[1.02]');
+        });
+    }
+});
+</script>
+
+<!-- Custom Styles -->
+<style>
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes zoomSlow {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.animate-zoom-slow {
+    animation: zoomSlow 20s ease-in-out infinite;
+}
+
+.card-elevate {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevate:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.btn-scale {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-scale:hover {
+    transform: scale(1.02);
+}
+
+.btn-scale:active {
+    transform: scale(0.98);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #d4af37 0%, #f5e6a3 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Input Focus Animation */
+input:focus {
+    transform: scale(1.01);
+}
+
+/* Smooth Transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+</style>
+{% endblock %}

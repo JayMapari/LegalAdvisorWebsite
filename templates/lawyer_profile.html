@@ -1,0 +1,469 @@
+{% extends "base.html" %}
+
+{% block title %}{{ lawyer.name }} - Lawyer Profile{% endblock %}
+
+{% block content %}
+<!-- Animated Background Elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-brand-gold/10 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute top-40 right-20 w-96 h-96 bg-brand-navy/5 rounded-full blur-3xl animate-zoom-slow"></div>
+    <div class="absolute bottom-20 left-1/3 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+</div>
+
+<!-- Page Header -->
+<section class="relative py-8 bg-gradient-to-br from-brand-light via-white to-brand-light border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-slate-500 mb-6 animate-fade-in-up">
+            <a href="/lawyers" class="hover:text-brand-gold transition-colors flex items-center gap-1">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                </svg>
+                Lawyers
+            </a>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <span class="text-brand-navy font-semibold">Profile</span>
+        </nav>
+
+        <!-- Lawyer Header Card -->
+        <div class="card-elevate bg-gradient-to-br from-brand-navy to-slate-900 rounded-2xl shadow-2xl overflow-hidden animate-fade-in-up-delay-1">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-brand-gold/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+            
+            <div class="relative z-10 p-6 md:p-8">
+                <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+                    <!-- Avatar -->
+                    <div class="w-32 h-32 rounded-2xl overflow-hidden shadow-2xl shadow-brand-gold/30 flex-shrink-0 ring-2 ring-white/20 bg-gradient-to-br from-brand-gold to-amber-500">
+                        {% if lawyer.profile_image %}
+                        <img src="{{ url_for('static', filename='lawyer_profiles/' + lawyer.profile_image) }}" alt="{{ lawyer.name }}" class="w-full h-full object-cover">
+                        {% else %}
+                        <span class="w-full h-full flex items-center justify-center text-5xl font-bold text-white">{{ lawyer.name[0].upper() }}</span>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Info -->
+                    <div class="flex-1 text-center md:text-left">
+                        <div class="flex flex-col md:flex-row md:items-center gap-3 mb-3">
+                            <h1 class="font-serif text-3xl md:text-4xl text-white font-light">{{ lawyer.name }}</h1>
+                            <span class="inline-flex items-center px-3 py-1 bg-green-500/20 text-green-400 text-xs font-semibold rounded-full border border-green-500/30 w-fit mx-auto md:mx-0">
+                                <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                </svg>
+                                Verified Lawyer
+                            </span>
+                        </div>
+                        
+                        <div class="flex flex-wrap justify-center md:justify-start gap-3 mb-4">
+                            <span class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-md text-white text-sm font-medium rounded-lg border border-white/20">
+                                <svg class="w-4 h-4 mr-2 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                                {{ lawyer.specialization }}
+                            </span>
+                            <span class="inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-md text-white text-sm font-medium rounded-lg border border-white/20">
+                                <svg class="w-4 h-4 mr-2 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                {{ lawyer.experience }}+ Years Experience
+                            </span>
+                        </div>
+                        
+                        <div class="flex items-center justify-center md:justify-start gap-2 text-slate-300 text-sm">
+                            <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            <span>{{ lawyer.city }}</span>
+                        </div>
+
+                        {% set ar = (lawyer.avg_rating or 0)|float %}
+                        <div class="flex items-center justify-center md:justify-start gap-1 mt-3 flex-wrap">
+                            {% for i in range(5) %}
+                            <svg class="w-4 h-4 {% if i < ar %}text-brand-gold fill-current{% else %}text-slate-500{% endif %} transition-colors duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.921-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path>
+                            </svg>
+                            {% endfor %}
+                            <span class="text-slate-400 text-sm ml-1">({{ lawyer.total_reviews|default(0)|int }} reviews)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="py-8 bg-gradient-to-b from-white to-brand-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- LEFT: Lawyer Details (2 columns) -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- How It Works - Step Progress -->
+                <div class="card-elevate bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 overflow-hidden animate-fade-in-up-delay-2">
+                    <div class="px-6 py-4 bg-gradient-to-r from-brand-navy/5 to-brand-gold/5 border-b border-slate-200">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-brand-gold/20 rounded-lg flex items-center justify-center">
+                                <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-brand-navy">How It Works</h3>
+                                <p class="text-xs text-slate-500">Simple 3-step booking process</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="relative">
+                            <!-- Progress Line -->
+                            <div class="absolute top-6 left-0 right-0 h-0.5 bg-gradient-to-r from-brand-gold via-brand-gold to-slate-300"></div>
+                            
+                            <!-- Steps -->
+                            <div class="relative grid grid-cols-3 gap-4">
+                                <!-- Step 1 -->
+                                <div class="text-center">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-brand-gold to-amber-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg shadow-brand-gold/30 relative z-10">
+                                        <span class="text-white font-bold">1️⃣</span>
+                                    </div>
+                                    <h4 class="text-sm font-semibold text-brand-navy mb-1">Review Details</h4>
+                                    <p class="text-xs text-slate-500">Check lawyer profile</p>
+                                </div>
+                                
+                                <!-- Step 2 -->
+                                <div class="text-center">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-brand-gold to-amber-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg shadow-brand-gold/30 relative z-10">
+                                        <span class="text-white font-bold">2️⃣</span>
+                                    </div>
+                                    <h4 class="text-sm font-semibold text-brand-navy mb-1">Book Consultation</h4>
+                                    <p class="text-xs text-slate-500">Schedule your session</p>
+                                </div>
+                                
+                                <!-- Step 3 -->
+                                <div class="text-center">
+                                    <div class="w-12 h-12 bg-gradient-to-br from-brand-gold to-amber-500 rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg shadow-brand-gold/30 relative z-10">
+                                        <span class="text-white font-bold">3️⃣</span>
+                                    </div>
+                                    <h4 class="text-sm font-semibold text-brand-navy mb-1">Track Booking</h4>
+                                    <p class="text-xs text-slate-500">Monitor your consultation</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lawyer Details Card -->
+                <div class="card-elevate bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 overflow-hidden animate-fade-in-up-delay-2" style="animation-delay: 0.2s;">
+                    <div class="px-6 py-4 bg-gradient-to-r from-brand-navy/5 to-brand-gold/5 border-b border-slate-200">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 bg-brand-navy/10 rounded-lg flex items-center justify-center">
+                                <svg class="w-4 h-4 text-brand-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold text-brand-navy">Lawyer Details</h3>
+                                <p class="text-xs text-slate-500">Professional information</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                            <!-- City -->
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    </svg>
+                                    <span class="text-xs font-semibold text-slate-500 uppercase">City</span>
+                                </div>
+                                <p class="text-sm font-semibold text-brand-navy">{{ lawyer.city }}</p>
+                            </div>
+                            
+                            <!-- Specialization -->
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <span class="text-xs font-semibold text-slate-500 uppercase">Specialization</span>
+                                </div>
+                                <p class="text-sm font-semibold text-brand-navy">{{ lawyer.specialization }}</p>
+                            </div>
+                            
+                            <!-- Experience -->
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <span class="text-xs font-semibold text-slate-500 uppercase">Experience</span>
+                                </div>
+                                <p class="text-sm font-semibold text-brand-navy">{{ lawyer.experience }} years</p>
+                            </div>
+                            
+                            <!-- Phone -->
+                            <div class="p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                    </svg>
+                                    <span class="text-xs font-semibold text-slate-500 uppercase">Phone</span>
+                                </div>
+                                <p class="text-sm font-semibold text-brand-navy">{{ lawyer.phone }}</p>
+                            </div>
+                            
+                            <!-- Email -->
+                            <div class="md:col-span-2 p-4 bg-slate-50 rounded-xl border border-slate-200">
+                                <div class="flex items-center gap-2 mb-2">
+                                    <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <span class="text-xs font-semibold text-slate-500 uppercase">Email</span>
+                                </div>
+                                <p class="text-sm font-semibold text-brand-navy">{{ lawyer.email }}</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Description -->
+                        <div class="pt-6 border-t border-slate-200">
+                            <div class="flex items-center gap-2 mb-3">
+                                <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                                <h4 class="text-sm font-semibold text-brand-navy">About</h4>
+                            </div>
+                            <div class="bg-slate-50 rounded-xl p-4 border border-slate-200">
+                                <p class="text-sm text-slate-700 font-light leading-relaxed">{{ lawyer.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT: Booking Panel (1 column) -->
+            <div class="lg:col-span-1">
+                <div class="card-elevate bg-gradient-to-br from-brand-navy to-slate-900 rounded-2xl shadow-2xl p-6 md:p-8 sticky top-24 animate-fade-in-up-delay-2" style="animation-delay: 0.3s;">
+                    
+                    <!-- Header -->
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-brand-gold/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                            <svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <h3 class="font-serif text-xl text-white font-light mb-2">Book Consultation</h3>
+                        <p class="text-slate-300 text-sm font-light">Schedule a session with {{ lawyer.name }}</p>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    {% if session.get('user_id') %}
+                    <div class="space-y-3">
+                        <a href="/consultations/{{ lawyer.lawyer_id }}" class="btn-scale w-full px-6 py-4 bg-gradient-to-r from-brand-gold to-amber-500 text-white font-semibold rounded-lg hover:from-brand-gold hover:to-amber-600 transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-gold/30">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            Book Consultation
+                        </a>
+                        
+                        <a href="/my-consultations/{{ lawyer.lawyer_id }}" class="btn-scale w-full px-6 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-semibold rounded-lg hover:bg-white hover:text-brand-navy transition-all flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            </svg>
+                            View My Bookings
+                        </a>
+                    </div>
+                    {% else %}
+                    <div class="space-y-3">
+                        <a href="/login" class="btn-scale w-full px-6 py-4 bg-gradient-to-r from-brand-gold to-amber-500 text-white font-semibold rounded-lg hover:from-brand-gold hover:to-amber-600 transition-all flex items-center justify-center gap-2 shadow-lg shadow-brand-gold/30">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
+                            </svg>
+                            Login to Book Consultation
+                        </a>
+                        
+                        <a href="/register" class="btn-scale w-full px-6 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-semibold rounded-lg hover:bg-white hover:text-brand-navy transition-all flex items-center justify-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                            </svg>
+                            Create Account
+                        </a>
+                    </div>
+                    {% endif %}
+
+                    {% if session.get('user_id') and user_rating is none %}
+                    <div class="mt-6 pt-6 border-t border-white/20">
+                        <p class="text-white text-sm font-semibold mb-3 text-center">Rate this lawyer</p>
+                        <form method="POST" action="/rate-lawyer/{{ lawyer.lawyer_id }}" class="js-rate-lawyer-form">
+                            <input type="hidden" name="next" value="{{ url_for('lawyer_profile', lawyer_id=lawyer.lawyer_id) }}">
+                            <div>
+                                <div class="star-rating-container flex justify-center gap-1">
+                                    <button type="button" class="star-btn p-0 focus:outline-none transition-all duration-200 transform hover:scale-110" data-value="1" aria-label="Rate 1 star">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    </button>
+                                    <button type="button" class="star-btn p-0 focus:outline-none transition-all duration-200 transform hover:scale-110" data-value="2" aria-label="Rate 2 stars">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    </button>
+                                    <button type="button" class="star-btn p-0 focus:outline-none transition-all duration-200 transform hover:scale-110" data-value="3" aria-label="Rate 3 stars">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    </button>
+                                    <button type="button" class="star-btn p-0 focus:outline-none transition-all duration-200 transform hover:scale-110" data-value="4" aria-label="Rate 4 stars">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    </button>
+                                    <button type="button" class="star-btn p-0 focus:outline-none transition-all duration-200 transform hover:scale-110" data-value="5" aria-label="Rate 5 stars">
+                                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                                    </button>
+                                </div>
+                                <input type="hidden" name="rating" class="rating-value" value="0">
+                            </div>
+                            <button type="submit" class="mt-3 w-full px-4 py-2.5 text-xs font-semibold text-brand-navy bg-brand-gold rounded-lg hover:bg-white transition-colors">Submit Rating</button>
+                        </form>
+                    </div>
+                    {% endif %}
+
+                    <!-- Security Note -->
+                    <div class="mt-6 pt-6 border-t border-white/20 text-center">
+                        <div class="flex items-center justify-center gap-2 text-xs text-slate-400">
+                            <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                            </svg>
+                            <span>Secure & encrypted booking</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<script>
+document.querySelectorAll('.js-rate-lawyer-form').forEach(function(form) {
+    form.addEventListener('submit', function(e) {
+        var inp = form.querySelector('.rating-value');
+        var v = inp ? parseInt(inp.value, 10) : 0;
+        if (!v || v < 1 || v > 5) {
+            e.preventDefault();
+            alert('Please select a rating from 1 to 5 stars.');
+        }
+    });
+});
+</script>
+
+<!-- Custom Styles -->
+<style>
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up-delay-1 {
+    animation: fadeInUp 0.6s ease-out 0.1s forwards;
+    opacity: 0;
+}
+
+.animate-fade-in-up-delay-2 {
+    animation: fadeInUp 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes zoomSlow {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.animate-zoom-slow {
+    animation: zoomSlow 20s ease-in-out infinite;
+}
+
+.card-elevate {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevate:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.btn-scale {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-scale:hover {
+    transform: scale(1.03);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #d4af37 0%, #f5e6a3 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Smooth Transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .lg\:col-span-2,
+    .lg\:col-span-1 {
+        grid-column: span 1;
+    }
+    
+    .sticky {
+        position: relative;
+        top: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    
+    .md\:p-8 {
+        padding: 1.5rem;
+    }
+}
+</style>
+{% endblock %}

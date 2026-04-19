@@ -1,0 +1,320 @@
+{% extends "base.html" %}
+
+{% block title %}Add Timeline Event{% endblock %}
+
+{% block content %}
+<!-- Animated Background Elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-brand-gold/10 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute bottom-20 right-10 w-96 h-96 bg-brand-navy/5 rounded-full blur-3xl animate-zoom-slow"></div>
+    <div class="absolute top-1/2 left-1/2 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+</div>
+
+<!-- Centered Content Container -->
+<div class="min-h-screen flex items-center justify-center p-4 md:p-6">
+    
+    <!-- Form Card -->
+    <div class="card-elevate w-full max-w-2xl bg-white/90 backdrop-blur-xl rounded-2xl shadow-2xl border border-slate-200 overflow-hidden animate-fade-in-up">
+        
+        <!-- Card Header -->
+        <div class="bg-gradient-to-br from-brand-navy to-slate-900 p-6 md:p-8 text-center relative overflow-hidden">
+            <!-- Decorative Circle -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gold/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+            
+            <div class="relative z-10">
+                <div class="w-16 h-16 bg-brand-gold/20 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-brand-gold/20">
+                    <svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <h1 class="font-serif text-2xl md:text-3xl text-white font-light mb-2">
+                    Add <span class="font-semibold gradient-text">Timeline Event</span>
+                </h1>
+                <p class="text-slate-300 text-sm font-light">Record important case milestones</p>
+            </div>
+        </div>
+
+        <!-- Form Body -->
+        <div class="p-6 md:p-8">
+            
+            <form method="POST" class="space-y-8" id="add-timeline-form">
+                
+                <!-- SECTION 1: Event Details -->
+                <div class="space-y-6">
+                    <div class="flex items-center gap-3 pb-3 border-b border-slate-200">
+                        <div class="w-8 h-8 bg-brand-navy/10 rounded-lg flex items-center justify-center">
+                            <svg class="w-4 h-4 text-brand-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-brand-navy">Event Details</h3>
+                            <p class="text-xs text-slate-500">Basic event information</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Event Title -->
+                        <div class="md:col-span-2 space-y-2">
+                            <label for="event_title" class="block text-sm font-semibold text-slate-700">
+                                Event Title <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    id="event_title" 
+                                    name="event_title" 
+                                    class="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-800 placeholder-slate-400 hover:border-slate-400"
+                                    placeholder="e.g., Court Hearing, Document Submission, Meeting"
+                                    required>
+                            </div>
+                            <p class="text-xs text-slate-500">Provide a clear, descriptive event title</p>
+                        </div>
+
+                        <!-- Event Date -->
+                        <div class="space-y-2">
+                            <label for="event_date" class="block text-sm font-semibold text-slate-700">
+                                Event Date <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                </div>
+                                <input 
+                                    type="date" 
+                                    id="event_date" 
+                                    name="event_date" 
+                                    class="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-800 hover:border-slate-400"
+                                    required>
+                            </div>
+                            <p class="text-xs text-slate-500">Select the event date</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SECTION 2: Event Description -->
+                <div class="space-y-6 pt-6 border-t border-slate-200">
+                    <div class="flex items-center gap-3 pb-3 border-b border-slate-200">
+                        <div class="w-8 h-8 bg-brand-gold/20 rounded-lg flex items-center justify-center">
+                            <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold text-brand-navy">Event Description</h3>
+                            <p class="text-xs text-slate-500">Detailed event information</p>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2">
+                        <label for="event_description" class="block text-sm font-semibold text-slate-700">
+                            Description <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative group">
+                            <div class="absolute top-4 left-4 pointer-events-none">
+                                <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <textarea 
+                                id="event_description" 
+                                name="event_description" 
+                                rows="6" 
+                                class="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-800 placeholder-slate-400 hover:border-slate-400 resize-none"
+                                placeholder="Provide comprehensive details about this timeline event including what happened, who was involved, key outcomes, and any relevant notes for future reference..."
+                                required></textarea>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <p class="text-xs text-slate-500">Include all relevant event details</p>
+                            <span id="char-counter" class="text-xs text-slate-400">0 chars</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="space-y-3 pt-6 border-t border-slate-200">
+                    <button 
+                        type="submit" 
+                        id="submit-btn"
+                        class="btn-scale w-full px-8 py-4 bg-gradient-to-r from-brand-navy to-brand-gold text-white font-semibold rounded-lg hover:from-brand-gold hover:to-brand-navy shadow-lg shadow-brand-gold/30 transition-all flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        <span id="btn-text">Add Event</span>
+                        <svg id="btn-spinner" class="animate-spin w-5 h-5 hidden" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                    
+                    <a href="/cases" class="btn-scale w-full px-8 py-3.5 bg-white border-2 border-slate-200 text-slate-700 font-semibold rounded-lg hover:border-brand-navy hover:text-brand-navy transition-all flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Back to Cases
+                    </a>
+                </div>
+
+            </form>
+
+            <!-- Security Note -->
+            <div class="mt-6 pt-6 border-t border-slate-200 text-center">
+                <p class="text-xs text-slate-500 flex items-center justify-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    All timeline events are securely stored and encrypted
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Form JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('add-timeline-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+    const btnSpinner = document.getElementById('btn-spinner');
+    const descriptionInput = document.getElementById('event_description');
+    const charCounter = document.getElementById('char-counter');
+    
+    // Form Submission with Loading State
+    if (form && submitBtn) {
+        form.addEventListener('submit', function() {
+            submitBtn.disabled = true;
+            btnText.textContent = 'Adding...';
+            btnSpinner.classList.remove('hidden');
+        });
+    }
+    
+    // Character Counter for Description
+    if (descriptionInput && charCounter) {
+        descriptionInput.addEventListener('input', function() {
+            const length = this.value.length;
+            charCounter.textContent = length + ' chars';
+            
+            // Add visual feedback for long descriptions
+            if (length > 300) {
+                charCounter.classList.add('text-amber-600');
+            } else {
+                charCounter.classList.remove('text-amber-600');
+            }
+        });
+    }
+    
+    // Input Focus Animations
+    const inputs = document.querySelectorAll('input, textarea');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.classList.add('scale-[1.01]');
+        });
+        input.addEventListener('blur', function() {
+            this.parentElement.classList.remove('scale-[1.01]');
+        });
+    });
+});
+</script>
+
+<!-- Custom Styles -->
+<style>
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes zoomSlow {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.animate-zoom-slow {
+    animation: zoomSlow 20s ease-in-out infinite;
+}
+
+.card-elevate {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevate:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.btn-scale {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-scale:hover {
+    transform: scale(1.02);
+}
+
+.btn-scale:active {
+    transform: scale(0.98);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #d4af37 0%, #f5e6a3 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Input Focus Animation */
+input:focus, textarea:focus {
+    transform: scale(1.01);
+}
+
+/* Smooth Transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+    
+    .md\:p-8 {
+        padding: 1.5rem;
+    }
+}
+</style>
+{% endblock %}

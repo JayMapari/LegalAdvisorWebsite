@@ -1,0 +1,785 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<!-- Chart.js CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<!-- Animated Background Elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-brand-gold/5 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute top-40 right-20 w-96 h-96 bg-brand-navy/5 rounded-full blur-3xl animate-zoom-slow"></div>
+    <div class="absolute bottom-20 left-1/3 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+</div>
+
+<!-- Dashboard Header -->
+<section class="relative py-8 bg-gradient-to-br from-brand-light via-white to-brand-light border-b border-slate-200 z-10">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-slate-500 mb-4 animate-fade-in-up">
+            <a href="/" class="hover:text-brand-gold transition-colors">Home</a>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <span class="text-brand-navy font-semibold">Admin Panel</span>
+        </nav>
+
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+            <div>
+                <div class="flex items-center gap-3 mb-2">
+                    <h1 class="animate-fade-in-up-delay-1 font-serif text-3xl md:text-4xl text-brand-navy font-light">
+                        Admin <span class="italic gradient-text">Dashboard</span>
+                    </h1>
+                    <!-- Live Indicator -->
+                    <div class="flex items-center gap-2 px-3 py-1.5 bg-green-500/10 border border-green-500/30 rounded-full animate-fade-in-up">
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                        <span class="text-xs font-semibold text-green-600">Live</span>
+                    </div>
+                </div>
+                <p class="animate-fade-in-up-delay-2 text-slate-600 font-light">Real-time monitoring and system control</p>
+            </div>
+
+            <!-- Filter Bar -->
+            <div class="flex items-center gap-3 animate-fade-in-up-delay-2">
+            <!-- Custom Premium Dropdown -->
+            <div class="relative" id="custom-dropdown">
+                <button type="button" class="flex items-center justify-between gap-3 px-4 py-2.5 bg-white border border-slate-300 rounded-lg text-sm font-semibold text-slate-700 hover:border-brand-gold focus:border-brand-gold focus:ring-4 focus:ring-brand-gold/10 transition-all min-w-[140px]" id="dropdown-trigger">
+                    <span id="selected-text">This Week</span>
+                    <svg class="w-4 h-4 text-slate-400 group-hover:text-brand-gold transition-transform" id="dropdown-arrow" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
+                
+                <div class="absolute top-full right-0 mt-2 w-48 bg-white border border-slate-100 rounded-xl shadow-2xl opacity-0 invisible translate-y-2 transition-all z-[9999] overflow-hidden backdrop-blur-xl" id="dropdown-menu">
+                    <div class="p-1">
+                        <div class="dropdown-item px-4 py-2 text-sm text-slate-600 hover:bg-brand-gold/10 hover:text-brand-gold cursor-pointer rounded-lg transition-colors flex items-center justify-between" data-value="today">
+                            Today
+                            <svg class="w-4 h-4 check-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div class="dropdown-item px-4 py-2 text-sm text-brand-gold bg-brand-gold/5 hover:bg-brand-gold/10 cursor-pointer rounded-lg transition-colors flex items-center justify-between" data-value="week">
+                            This Week
+                            <svg class="w-4 h-4 check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div class="dropdown-item px-4 py-2 text-sm text-slate-600 hover:bg-brand-gold/10 hover:text-brand-gold cursor-pointer rounded-lg transition-colors flex items-center justify-between" data-value="month">
+                            This Month
+                            <svg class="w-4 h-4 check-icon hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="time_filter" id="time-filter-value" value="week">
+            </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Dashboard Content -->
+<section class="py-8 bg-gradient-to-b from-white to-brand-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Stats Cards Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <!-- Total Users Card -->
+            <div class="card-elevate group relative overflow-hidden rounded-xl shadow-lg p-6 bg-gradient-to-br from-brand-navy to-slate-900 text-white animate-fade-in-up" style="animation-delay: 0.1s;">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-brand-gold/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-brand-gold/20 rounded-xl flex items-center justify-center group-hover:bg-brand-gold/30 transition-colors">
+                            <svg class="w-6 h-6 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="mb-1">
+                        <span class="stat-counter text-3xl font-bold text-brand-gold" data-target="{{ total_users if total_users else 0 }}">0</span>
+                    </div>
+                    <p class="text-slate-300 text-sm font-light">Total Users</p>
+                    <div class="mt-3 flex items-center gap-1 text-xs text-green-400">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                        <span>+12% this week</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Lawyers Card -->
+            <div class="card-elevate group relative overflow-hidden rounded-xl shadow-lg p-6 bg-gradient-to-br from-brand-gold to-amber-600 text-white animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="mb-1">
+                        <span class="stat-counter text-3xl font-bold text-white" data-target="{{ total_lawyers if total_lawyers else 0 }}">0</span>
+                    </div>
+                    <p class="text-white/80 text-sm font-light">Total Lawyers</p>
+                    <div class="mt-3 flex items-center gap-1 text-xs text-green-100">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                        <span>+8% this week</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Consultations Card -->
+            <div class="card-elevate group relative overflow-hidden rounded-xl shadow-lg p-6 bg-gradient-to-br from-green-600 to-emerald-700 text-white animate-fade-in-up" style="animation-delay: 0.3s;">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="mb-1">
+                        <span class="stat-counter text-3xl font-bold text-white" data-target="{{ total_consultations if total_consultations else 0 }}">0</span>
+                    </div>
+                    <p class="text-white/80 text-sm font-light">Total Consultations</p>
+                    <div class="mt-3 flex items-center gap-1 text-xs text-green-100">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                        <span>+15% this week</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Total Laws Card -->
+            <div class="card-elevate group relative overflow-hidden rounded-xl shadow-lg p-6 bg-gradient-to-br from-blue-600 to-indigo-700 text-white animate-fade-in-up" style="animation-delay: 0.4s;">
+                <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
+                <div class="relative z-10">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                    </div>
+                    <div class="mb-1">
+                        <span class="stat-counter text-3xl font-bold text-white" data-target="{{ total_laws if total_laws else 0 }}">0</span>
+                    </div>
+                    <p class="text-white/80 text-sm font-light">Total Laws</p>
+                    <div class="mt-3 flex items-center gap-1 text-xs text-green-100">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+                        </svg>
+                        <span>+5% this week</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Bar Chart -->
+            <div class="card-elevate bg-white rounded-xl shadow-lg border border-slate-200 p-6 animate-fade-in-up" style="animation-delay: 0.5s;">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="font-serif text-lg text-brand-navy font-semibold">Platform Metrics</h3>
+                        <p class="text-xs text-slate-500">Weekly activity overview</p>
+                    </div>
+                    <div class="w-10 h-10 bg-brand-gold/20 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="relative h-64">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Doughnut Chart -->
+            <div class="card-elevate bg-white rounded-xl shadow-lg border border-slate-200 p-6 animate-fade-in-up" style="animation-delay: 0.6s;">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="font-serif text-lg text-brand-navy font-semibold">Distribution</h3>
+                        <p class="text-xs text-slate-500">Resource allocation</p>
+                    </div>
+                    <div class="w-10 h-10 bg-brand-gold/20 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.488 9H15V3.512A9.025 9.025 0 0120.488 9z"></path>
+                        </svg>
+                    </div>
+                </div>
+                <div class="relative h-64 flex items-center justify-center">
+                    <canvas id="doughnutChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions & Recent Activity -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Quick Actions Grid -->
+            <div class="lg:col-span-2 card-elevate bg-white rounded-xl shadow-lg border border-slate-200 p-6 animate-fade-in-up" style="animation-delay: 0.7s;">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="font-serif text-lg text-brand-navy font-semibold">Quick Actions</h3>
+                        <p class="text-xs text-slate-500">System management tools</p>
+                    </div>
+                    <div class="w-10 h-10 bg-brand-gold/20 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <a href="/admin/lawyers" class="group shimmer-effect p-5 bg-gradient-to-br from-brand-navy/5 to-brand-navy/10 rounded-xl border border-brand-navy/20 hover:border-brand-gold/50 transition-all hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-navy/20 rounded-xl flex items-center justify-center group-hover:bg-brand-gold/20 transition-colors">
+                                <svg class="w-6 h-6 text-brand-navy group-hover:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656-.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-brand-navy group-hover:text-brand-gold transition-colors">Manage Lawyers</h4>
+                                <p class="text-xs text-slate-500 mt-1">Add, edit, or remove lawyers</p>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-400 group-hover:text-brand-gold group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <a href="/admin-users" class="group shimmer-effect p-5 bg-gradient-to-br from-brand-gold/5 to-brand-gold/10 rounded-xl border border-brand-gold/20 hover:border-brand-gold/50 transition-all hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-brand-gold/20 rounded-xl flex items-center justify-center group-hover:bg-brand-gold/30 transition-colors">
+                                <svg class="w-6 h-6 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-brand-navy group-hover:text-brand-gold transition-colors">Manage Users</h4>
+                                <p class="text-xs text-slate-500 mt-1">View and manage user accounts</p>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-400 group-hover:text-brand-gold group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <a href="/admin-consultations" class="group shimmer-effect p-5 bg-gradient-to-br from-green-500/5 to-green-500/10 rounded-xl border border-green-500/20 hover:border-green-500/50 transition-all hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
+                                <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-brand-navy group-hover:text-green-600 transition-colors">Consultations</h4>
+                                <p class="text-xs text-slate-500 mt-1">Monitor all consultations</p>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-400 group-hover:text-green-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <a href="/admin/add-category" class="group shimmer-effect p-5 bg-gradient-to-br from-blue-500/5 to-blue-500/10 rounded-xl border border-blue-500/20 hover:border-blue-500/50 transition-all hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center group-hover:bg-blue-500/30 transition-colors">
+                                <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-brand-navy group-hover:text-blue-600 transition-colors">Add Category</h4>
+                                <p class="text-xs text-slate-500 mt-1">Create new law categories</p>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-400 group-hover:text-blue-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <a href="/admin/add-law" class="group shimmer-effect p-5 bg-gradient-to-br from-purple-500/5 to-purple-500/10 rounded-xl border border-purple-500/20 hover:border-purple-500/50 transition-all hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center group-hover:bg-purple-500/30 transition-colors">
+                                <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-brand-navy group-hover:text-purple-600 transition-colors">Add Law</h4>
+                                <p class="text-xs text-slate-500 mt-1">Add new laws to library</p>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-400 group-hover:text-purple-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+
+                    <a href="/admin/add-helpline" class="group shimmer-effect p-5 bg-gradient-to-br from-amber-500/5 to-amber-500/10 rounded-xl border border-amber-500/20 hover:border-amber-500/50 transition-all hover:-translate-y-1">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center group-hover:bg-amber-500/30 transition-colors">
+                                <svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-semibold text-brand-navy group-hover:text-amber-600 transition-colors">Add Helpline</h4>
+                                <p class="text-xs text-slate-500 mt-1">Add emergency helplines</p>
+                            </div>
+                            <svg class="w-5 h-5 text-slate-400 group-hover:text-amber-600 group-hover:translate-x-1 transition-all" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </div>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Recent Activity Panel -->
+            <div class="card-elevate bg-white rounded-xl shadow-lg border border-slate-200 p-6 animate-fade-in-up transition-all hover:shadow-2xl overflow-hidden" style="animation-delay: 0.8s;">
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h3 class="font-serif text-lg text-brand-navy font-semibold">Recent Activity</h3>
+                        <p class="text-xs text-slate-500">Live system updates</p>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <a href="#" class="text-[10px] font-bold text-brand-gold uppercase tracking-wider hover:underline">View All</a>
+                        <div class="relative">
+                            <div class="w-10 h-10 bg-brand-gold/10 rounded-xl flex items-center justify-center transition-transform hover:rotate-12">
+                                <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                            </div>
+                            <div class="absolute -top-1 -right-1 w-3 h-3 bg-brand-gold rounded-full border-2 border-white animate-pulse"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-4 max-h-[480px] overflow-y-auto overflow-x-hidden pr-1 sm:pr-2 custom-scrollbar" id="activity-list">
+                    {% for activity in recent_activities %}
+                    <div class="group w-full max-w-full flex items-start gap-4 p-4 bg-slate-50/50 backdrop-blur-sm rounded-xl border border-slate-200/70 hover:bg-white hover:shadow-md transition-all animate-fade-in-up" style="animation-delay: {{ loop.index0 * 0.1 }}s;">
+                        <div class="w-10 h-10 bg-{{ 'amber' if activity.color == 'brand-gold' else activity.color }}-500/10 rounded-xl flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
+                            <svg class="w-5 h-5 text-{{ 'amber' if activity.color == 'brand-gold' else activity.color }}-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                {% if activity.icon == 'user-plus' %}
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+                                {% elif activity.icon == 'user' %}
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                {% elif activity.icon == 'calendar' %}
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                {% elif activity.icon == 'book' %}
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                {% endif %}
+                            </svg>
+                        </div>
+                        <div class="flex-1 min-w-0">
+                            <p class="text-sm font-semibold text-brand-navy leading-snug break-words">{{ activity.text }}</p>
+                            <p class="text-xs text-slate-500 mt-1 flex items-center gap-1.5">
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                {{ activity.time }}
+                            </p>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="py-8 text-center text-slate-400 font-light">
+                        <svg class="w-12 h-12 mx-auto mb-3 opacity-20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        No recent activity found
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="mt-5 flex items-center justify-between rounded-xl border border-slate-200 bg-gradient-to-r from-slate-50 to-white px-4 py-3">
+                    <div>
+                        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">System Status</p>
+                        <p class="text-sm text-slate-600 mt-1">Recent activity feed is synced and monitored.</p>
+                    </div>
+                    <div class="w-11 h-11 bg-gradient-to-br from-brand-navy to-slate-900 rounded-2xl shadow-lg shadow-brand-navy/20 border border-white flex items-center justify-center flex-shrink-0">
+                        <svg class="w-5 h-5 text-brand-gold" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- Dashboard JavaScript -->
+<script>
+(function() {
+    'use strict';
+    
+    // Store chart instances to prevent re-creation
+    var chartInstances = {
+        bar: null,
+        doughnut: null
+    };
+    
+    // Dashboard data from backend (safe defaults)
+    window.dashboardData = {
+    totalUsers: {{ total_users | default(0) }},
+    totalLawyers: {{ total_lawyers | default(0) }},
+    totalConsultations: {{ total_consultations | default(0) }},
+    totalLaws: {{ total_laws | default(0) }}
+};
+
+    // Initialize when DOM is ready
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeCounters();
+        initializeCharts();
+        initializeFilters();
+    });
+    
+    // Animated Counter Effect
+    function initializeCounters() {
+        var counters = document.querySelectorAll('.stat-counter');
+        counters.forEach(function(counter) {
+            animateCounter(counter);
+        });
+    }
+    
+    function animateCounter(element) {
+        var target = parseInt(element.getAttribute('data-target')) || 0;
+        var duration = 2000;
+        var step = target / (duration / 16);
+        var current = 0;
+
+        var timer = setInterval(function() {
+            current += step;
+            if (current >= target) {
+                element.textContent = target.toLocaleString();
+                clearInterval(timer);
+            } else {
+                element.textContent = Math.floor(current).toLocaleString();
+            }
+        }, 16);
+    }
+    
+    // Initialize Charts (only once)
+    function initializeCharts() {
+        // Check if Chart.js is loaded
+        if (typeof Chart === 'undefined') {
+            console.error('Chart.js is not loaded');
+            return;
+        }
+        
+        // Initialize Bar Chart
+        var barCanvas = document.getElementById('barChart');
+        if (barCanvas && !chartInstances.bar) {
+            var barCtx = barCanvas.getContext('2d');
+            chartInstances.bar = new Chart(barCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Users',
+                        data: [65, 59, 80, 81, 56, 55, 40],
+                        backgroundColor: 'rgba(15, 23, 42, 0.8)',
+                        borderRadius: 6
+                    }, {
+                        label: 'Consultations',
+                        data: [28, 48, 40, 19, 86, 27, 90],
+                        backgroundColor: 'rgba(212, 175, 55, 0.8)',
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0, 0, 0, 0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        }
+        
+        // Initialize Doughnut Chart
+        var doughnutCanvas = document.getElementById('doughnutChart');
+        if (doughnutCanvas && !chartInstances.doughnut) {
+            var doughnutCtx = doughnutCanvas.getContext('2d');
+            chartInstances.doughnut = new Chart(doughnutCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Users', 'Lawyers', 'Laws', 'Consultations'],
+                    datasets: [{
+                        data: [
+                            dashboardData.totalUsers,
+                            dashboardData.totalLawyers,
+                            dashboardData.totalLaws,
+                            dashboardData.totalConsultations
+                        ],
+                        backgroundColor: [
+                            'rgba(15, 23, 42, 0.8)',
+                            'rgba(212, 175, 55, 0.8)',
+                            'rgba(34, 197, 94, 0.8)',
+                            'rgba(59, 130, 246, 0.8)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom'
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        }
+    }
+    
+    function initializeFilters() {
+        var trigger = document.getElementById('dropdown-trigger');
+        var menu = document.getElementById('dropdown-menu');
+        var arrow = document.getElementById('dropdown-arrow');
+        var items = document.querySelectorAll('.dropdown-item');
+        var selectedText = document.getElementById('selected-text');
+        var hiddenInput = document.getElementById('time-filter-value');
+        
+        if (!trigger || !menu) return;
+
+        trigger.addEventListener('click', function(e) {
+            e.stopPropagation();
+            var isOpen = !menu.classList.contains('invisible');
+            
+            if (isOpen) {
+                closeDropdown();
+            } else {
+                openDropdown();
+            }
+        });
+
+        items.forEach(function(item) {
+            item.addEventListener('click', function() {
+                var value = this.getAttribute('data-value');
+                var text = this.textContent.trim();
+                
+                // Update text and value
+                selectedText.textContent = text;
+                hiddenInput.value = value;
+                
+                // Update visual state of items
+                items.forEach(function(i) {
+                    i.classList.remove('text-brand-gold', 'bg-brand-gold/5');
+                    i.classList.add('text-slate-600');
+                    i.querySelector('.check-icon').classList.add('hidden');
+                });
+                
+                this.classList.remove('text-slate-600');
+                this.classList.add('text-brand-gold', 'bg-brand-gold/5');
+                this.querySelector('.check-icon').classList.remove('hidden');
+                
+                console.log('Filter changed to:', value);
+                closeDropdown();
+            });
+        });
+
+        document.addEventListener('click', function() {
+            closeDropdown();
+        });
+
+        function openDropdown() {
+            menu.classList.remove('opacity-0', 'invisible', 'translate-y-2');
+            arrow.classList.add('rotate-180');
+        }
+
+        function closeDropdown() {
+            menu.classList.add('opacity-0', 'invisible', 'translate-y-2');
+            arrow.classList.remove('rotate-180');
+        }
+    }
+    
+})();
+</script>
+
+<!-- Custom Styles -->
+<style>
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up-delay-1 {
+    animation: fadeInUp 0.6s ease-out 0.1s forwards;
+    opacity: 0;
+}
+
+.animate-fade-in-up-delay-2 {
+    animation: fadeInUp 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes zoomSlow {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.animate-zoom-slow {
+    animation: zoomSlow 20s ease-in-out infinite;
+}
+
+.card-elevate {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevate:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.btn-scale {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-scale:hover {
+    transform: scale(1.03);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #d4af37 0%, #f5e6a3 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Chart Container */
+canvas {
+    max-width: 100%;
+}
+
+@keyframes bounce-slow {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.animate-bounce-slow {
+    animation: bounce-slow 4s ease-in-out infinite;
+}
+
+/* Smooth Transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke, transform, box-shadow;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 200ms;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.2);
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.4);
+}
+
+/* Shimmer Effect */
+.shimmer-effect {
+    position: relative;
+    overflow: hidden;
+}
+
+.shimmer-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0) 40%,
+        rgba(255, 255, 255, 0.4) 50%,
+        rgba(255, 255, 255, 0) 60%,
+        rgba(255, 255, 255, 0) 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.6s ease;
+}
+
+.shimmer-effect:hover::after {
+    transform: translateX(100%);
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .grid-cols-1.md\:grid-cols-2.lg\:grid-cols-4 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+</style>
+{% endblock %}

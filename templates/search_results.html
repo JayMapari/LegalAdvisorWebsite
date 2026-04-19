@@ -1,0 +1,321 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results - {{ query }}{% endblock %}
+
+{% block content %}
+<!-- Animated Background Elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-brand-gold/5 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute top-40 right-20 w-96 h-96 bg-brand-navy/5 rounded-full blur-3xl animate-zoom-slow"></div>
+    <div class="absolute bottom-20 left-1/3 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+</div>
+
+<!-- Page Header -->
+<section class="relative py-8 bg-gradient-to-br from-brand-light via-white to-brand-light border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-slate-500 mb-6 animate-fade-in-up">
+            <a href="/" class="hover:text-brand-gold transition-colors">Home</a>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <span class="text-brand-navy font-semibold">Search Results</span>
+        </nav>
+
+        <!-- Search Bar -->
+        <div class="max-w-3xl mx-auto mb-8 animate-fade-in-up-delay-1">
+            <form action="/search" method="GET" class="relative">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                </div>
+                <input 
+                    type="text" 
+                    name="q" 
+                    value="{{ query }}" 
+                    class="w-full pl-12 pr-32 py-4 rounded-full border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-800 placeholder-slate-400 shadow-lg"
+                    placeholder="Search laws, lawyers, legal topics...">
+                <button type="submit" class="absolute right-2 top-1/2 transform -translate-y-1/2 px-6 py-2.5 bg-gradient-to-r from-brand-gold to-amber-500 text-white font-semibold rounded-full hover:from-brand-gold hover:to-amber-600 transition-all shadow-lg shadow-brand-gold/30">
+                    Search
+                </button>
+            </form>
+            <p class="text-center text-slate-500 text-sm mt-3">
+                Showing results for "<span class="font-semibold text-brand-navy">{{ query }}</span>"
+            </p>
+        </div>
+
+        <!-- Results Summary -->
+        <div class="flex items-center justify-center gap-6 text-sm text-slate-600 animate-fade-in-up-delay-2">
+            <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                </svg>
+                <span>{{ laws|length }} Law{{ 's' if laws|length != 1 else '' }} Found</span>
+            </div>
+            <div class="w-px h-4 bg-slate-300"></div>
+            <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+                <span>{{ lawyers|length }} Lawyer{{ 's' if lawyers|length != 1 else '' }} Found</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="py-8 bg-gradient-to-b from-white to-brand-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {% if laws or lawyers %}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            
+            <!-- Laws Section -->
+            <div class="space-y-6">
+                <div class="flex items-center gap-3 pb-3 border-b-2 border-brand-gold">
+                    <div class="w-10 h-10 bg-brand-gold/20 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="font-serif text-xl text-brand-navy font-semibold">Legal Laws</h2>
+                        <p class="text-xs text-slate-500">{{ laws|length }} relevant law{{ 's' if laws|length != 1 else '' }}</p>
+                    </div>
+                </div>
+
+                {% if laws %}
+                <div class="grid grid-cols-1 gap-4">
+                    {% for law in laws %}
+                    <div class="card-elevate bg-white/80 backdrop-blur-md rounded-xl shadow-lg border border-slate-200 p-5 hover:border-brand-gold/50 transition-all animate-fade-in-up" style="animation-delay: {{ loop.index * 100 }}ms;">
+                        <div class="flex items-start gap-3 mb-3">
+                            <div class="w-10 h-10 bg-brand-navy/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <svg class="w-5 h-5 text-brand-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-brand-navy mb-1">{{ law.act_name }}{% if law.section_number %} <span class="text-slate-500 font-normal">- {{ law.section_number }}</span>{% endif %}</h3>
+                                <p class="text-sm text-slate-700 font-light leading-relaxed line-clamp-2">{{ law.simple_explanation }}</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3 pt-3 border-t border-slate-200">
+                            <a href="/law-library" class="text-xs font-semibold text-brand-gold hover:text-brand-navy transition-colors flex items-center gap-1">
+                                View Details
+                                <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-8 bg-slate-50 rounded-xl border border-slate-200">
+                    <svg class="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    <p class="text-sm text-slate-500">No laws found matching your search</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Lawyers Section -->
+            <div class="space-y-6">
+                <div class="flex items-center gap-3 pb-3 border-b-2 border-brand-gold">
+                    <div class="w-10 h-10 bg-brand-gold/20 rounded-xl flex items-center justify-center">
+                        <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h2 class="font-serif text-xl text-brand-navy font-semibold">Lawyers</h2>
+                        <p class="text-xs text-slate-500">{{ lawyers|length }} professional{{ 's' if lawyers|length != 1 else '' }}</p>
+                    </div>
+                </div>
+
+                {% if lawyers %}
+                <div class="grid grid-cols-1 gap-4">
+                    {% for lawyer in lawyers %}
+                    <div class="card-elevate bg-white/80 backdrop-blur-md rounded-xl shadow-lg border border-slate-200 p-5 hover:border-brand-gold/50 transition-all animate-fade-in-up" style="animation-delay: {{ loop.index * 100 }}ms;">
+                        <div class="flex items-start gap-4">
+                            <!-- Avatar -->
+                            <div class="w-14 h-14 bg-gradient-to-br from-brand-gold to-amber-500 rounded-full flex items-center justify-center shadow-lg shadow-brand-gold/30 flex-shrink-0">
+                                <span class="text-xl font-bold text-white">{{ lawyer.name[0].upper() }}</span>
+                            </div>
+                            
+                            <!-- Info -->
+                            <div class="flex-1">
+                                <h3 class="font-semibold text-brand-navy mb-2">{{ lawyer.name }}</h3>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="inline-flex items-center px-3 py-1 bg-brand-navy/10 text-brand-navy text-xs font-semibold rounded-full">
+                                        {{ lawyer.specialization }}
+                                    </span>
+                                    <span class="inline-flex items-center px-3 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-full">
+                                        <svg class="w-3 h-3 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                        </svg>
+                                        {{ lawyer.city }}
+                                    </span>
+                                </div>
+                                <a href="/lawyer/{{ lawyer.lawyer_id }}" class="btn-scale inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-gold to-amber-500 text-white text-xs font-semibold rounded-lg hover:from-brand-gold hover:to-amber-600 transition-all shadow-lg shadow-brand-gold/30">
+                                    View Profile
+                                    <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-8 bg-slate-50 rounded-xl border border-slate-200">
+                    <svg class="w-12 h-12 text-slate-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    <p class="text-sm text-slate-500">No lawyers found matching your search</p>
+                </div>
+                {% endif %}
+            </div>
+
+        </div>
+
+        {% else %}
+        <!-- Empty State -->
+        <div class="card-elevate bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 p-12 text-center animate-fade-in-up">
+            <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
+            </div>
+            <h3 class="font-serif text-2xl text-brand-navy mb-2">No Results Found</h3>
+            <p class="text-slate-600 font-light mb-6 max-w-md mx-auto">We couldn't find any results for "<span class="font-semibold text-brand-navy">{{ query }}</span>". Try different keywords or browse our categories.</p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="/law-library" class="btn-scale inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-brand-navy to-brand-gold text-white font-semibold rounded-lg hover:from-brand-gold hover:to-brand-navy transition-all shadow-lg shadow-brand-gold/30">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                    Browse Law Library
+                </a>
+                <a href="/lawyers" class="btn-scale inline-flex items-center gap-2 px-6 py-3 bg-white border-2 border-slate-200 text-slate-700 font-semibold rounded-lg hover:border-brand-navy hover:text-brand-navy transition-all">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                    Find Lawyers
+                </a>
+            </div>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- Custom Styles -->
+<style>
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in-up {
+    animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up-delay-1 {
+    animation: fadeInUp 0.6s ease-out 0.1s forwards;
+    opacity: 0;
+}
+
+.animate-fade-in-up-delay-2 {
+    animation: fadeInUp 0.6s ease-out 0.2s forwards;
+    opacity: 0;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+@keyframes zoomSlow {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
+
+.animate-zoom-slow {
+    animation: zoomSlow 20s ease-in-out infinite;
+}
+
+.card-elevate {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-elevate:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+}
+
+.btn-scale {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-scale:hover {
+    transform: scale(1.03);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #d4af37 0%, #f5e6a3 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Line Clamp for Text Truncation */
+.line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Smooth Transitions */
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 1024px) {
+    .lg\:grid-cols-2 {
+        grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .sm\:flex-row {
+        flex-direction: column;
+    }
+}
+</style>
+{% endblock %}

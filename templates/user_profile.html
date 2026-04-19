@@ -1,0 +1,159 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile{% endblock %}
+
+{% block content %}
+<section class="relative overflow-hidden bg-gradient-to-br from-brand-light via-white to-brand-light border-b border-slate-200">
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-10 left-10 w-64 h-64 rounded-full bg-brand-gold/10 blur-3xl"></div>
+        <div class="absolute bottom-0 right-10 w-72 h-72 rounded-full bg-brand-navy/10 blur-3xl"></div>
+    </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+            <div>
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-gold/10 text-brand-gold text-xs font-semibold uppercase tracking-[0.22em]">
+                    User Profile
+                </div>
+                <h1 class="mt-4 font-serif text-4xl text-brand-navy font-light">
+                    Welcome, <span class="italic gradient-text">{{ activity.user.name }}</span>
+                </h1>
+                <p class="mt-3 text-slate-600 max-w-2xl font-light">
+                    Track your legal activity, review recent updates, and keep your profile information current from one place.
+                </p>
+            </div>
+            <div class="grid grid-cols-2 gap-3 sm:min-w-[320px]">
+                {% for stat in activity.stats %}
+                <div class="rounded-2xl border border-slate-200 bg-white/90 backdrop-blur-md px-4 py-4 shadow-sm">
+                    <p class="text-[11px] uppercase tracking-[0.18em] text-slate-400">{{ stat.label }}</p>
+                    <p class="mt-2 text-2xl font-semibold text-brand-navy">{{ stat.value }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="py-10 bg-gradient-to-b from-white to-brand-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div class="xl:col-span-1 space-y-8">
+                <div class="card-elevate bg-white/90 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200 p-6">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <p class="text-sm font-semibold text-brand-navy">Profile Details</p>
+                            <p class="text-xs text-slate-500 mt-1">{{ activity.user.email }}</p>
+                        </div>
+                        <span class="inline-flex items-center rounded-full bg-brand-gold/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-brand-gold">
+                            {{ activity.role }}
+                        </span>
+                    </div>
+
+                    <form method="POST" action="{{ url_for('update_profile') }}" class="mt-6 space-y-4">
+                        <div>
+                            <label for="profile-name" class="block text-sm font-semibold text-brand-navy mb-2">Full Name</label>
+                            <input id="profile-name" name="name" type="text" value="{{ activity.user.name or '' }}" required class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition-all focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20">
+                        </div>
+                        <div>
+                            <label for="profile-phone" class="block text-sm font-semibold text-brand-navy mb-2">Phone Number</label>
+                            <input id="profile-phone" name="phone" type="tel" value="{{ activity.user.phone or '' }}" required class="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-700 outline-none transition-all focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20">
+                        </div>
+                        <button type="submit" class="btn-scale w-full rounded-xl bg-gradient-to-r from-brand-navy to-brand-gold px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-gold/20 transition-all hover:from-brand-gold hover:to-brand-navy">
+                            Save Profile Changes
+                        </button>
+                    </form>
+                </div>
+
+                <div class="card-elevate bg-white/90 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200 p-6">
+                    <p class="text-sm font-semibold text-brand-navy">Upcoming Activity</p>
+                    {% if activity.next_case %}
+                    <div class="mt-4 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white px-4 py-4">
+                        <p class="text-[11px] uppercase tracking-[0.18em] text-amber-700">Next Hearing</p>
+                        <p class="mt-2 text-lg font-semibold text-slate-800">{{ activity.next_case.title }}</p>
+                        <p class="mt-1 text-sm text-slate-600">{{ activity.next_case.next_hearing }}</p>
+                    </div>
+                    {% else %}
+                    <div class="mt-4 rounded-2xl border border-dashed border-slate-300 px-4 py-5 text-sm text-slate-500">
+                        No upcoming hearing is scheduled yet.
+                    </div>
+                    {% endif %}
+
+                    <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <a href="/cases" class="btn-scale rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-brand-navy hover:bg-brand-gold/10 hover:border-brand-gold/30 transition-all text-center">
+                            View Cases
+                        </a>
+                        <a href="/consultations/1" class="btn-scale rounded-xl border border-slate-200 bg-slate-50 px-4 py-3 text-sm font-semibold text-brand-navy hover:bg-brand-gold/10 hover:border-brand-gold/30 transition-all text-center">
+                            View Consultations
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="xl:col-span-2 space-y-8">
+                <div class="card-elevate bg-white/90 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200 p-6">
+                    <div class="flex items-center justify-between gap-4 mb-5">
+                        <div>
+                            <h2 class="font-serif text-2xl text-brand-navy font-light">Recent Consultations</h2>
+                            <p class="text-sm text-slate-500">See your latest bookings and their current status.</p>
+                        </div>
+                        <a href="/consultations/1" class="text-sm font-semibold text-brand-gold hover:text-brand-navy transition-colors">Open all</a>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        {% for item in activity.recent_items.consultations %}
+                        <div class="rounded-2xl border border-slate-200 bg-gradient-to-br from-white to-slate-50 p-4">
+                            <div class="flex items-start justify-between gap-3">
+                                <div>
+                                    <p class="text-base font-semibold text-brand-navy">{{ item.lawyer_name }}</p>
+                                    <p class="text-sm text-slate-500 mt-1">{{ item.consultation_type }}</p>
+                                </div>
+                                <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-semibold border
+                                    {% if item.status == 'Approved' %}
+                                    bg-green-50 text-green-700 border-green-200
+                                    {% elif item.status == 'Pending' %}
+                                    bg-amber-50 text-amber-700 border-amber-200
+                                    {% else %}
+                                    bg-rose-50 text-rose-700 border-rose-200
+                                    {% endif %}">
+                                    {{ item.status }}
+                                </span>
+                            </div>
+                            <p class="mt-4 text-sm text-slate-600">Consultation date: {{ item.consultation_date }}</p>
+                        </div>
+                        {% else %}
+                        <div class="lg:col-span-2 rounded-2xl border border-dashed border-slate-300 px-5 py-8 text-sm text-slate-500 text-center">
+                            No consultations booked yet.
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <div class="card-elevate bg-white/90 backdrop-blur-md rounded-2xl shadow-lg border border-slate-200 p-6">
+                    <div class="flex items-center justify-between gap-4 mb-5">
+                        <div>
+                            <h2 class="font-serif text-2xl text-brand-navy font-light">Recent Cases</h2>
+                            <p class="text-sm text-slate-500">Track the latest progress across your legal matters.</p>
+                        </div>
+                        <a href="/cases" class="text-sm font-semibold text-brand-gold hover:text-brand-navy transition-colors">Open all</a>
+                    </div>
+                    <div class="space-y-4">
+                        {% for item in activity.recent_items.cases %}
+                        <div class="rounded-2xl border border-slate-200 bg-gradient-to-r from-white to-slate-50 p-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                            <div>
+                                <p class="text-base font-semibold text-brand-navy">{{ item.title }}</p>
+                                <p class="mt-1 text-sm text-slate-500">Status: {{ item.status or 'Not set' }}</p>
+                            </div>
+                            <div class="text-sm text-slate-600">
+                                Next hearing: {{ item.next_hearing or 'Not scheduled' }}
+                            </div>
+                        </div>
+                        {% else %}
+                        <div class="rounded-2xl border border-dashed border-slate-300 px-5 py-8 text-sm text-slate-500 text-center">
+                            No cases added yet.
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

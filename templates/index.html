@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+
+{% block title %}Home{% endblock %}
+
+
+{% block content %}
+
+<!-- ============================================ -->
+<!-- PREMIUM HERO SECTION (Cinematic) -->
+<!-- ============================================ -->
+<section class="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+            <div class="absolute inset-0 hero-bg">
+                <img src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-4.0.3&auto=format&fit=crop&w=2400&q=80" alt="Legal Office" class="w-full h-full object-cover">
+            </div>
+            <div class="absolute inset-0 bg-gradient-to-b from-brand-navy/90 via-brand-navy/70 to-brand-navy/90"></div>
+            
+            <div class="relative z-10 max-w-5xl mx-auto px-4 text-center">
+                <span class="animate-fade-in-up inline-block py-2 px-4 border border-brand-gold/50 rounded-full text-brand-gold text-xs font-semibold tracking-widest uppercase mb-8 bg-brand-navy/50 backdrop-blur-sm">
+                    ✦ Trusted Legal Counsel Since 2010
+                </span>
+                <h1 class="animate-fade-in-up-delay-1 font-serif text-5xl md:text-7xl lg:text-8xl text-white font-light leading-tight mb-8 tracking-tight">
+                    Justice, <span class="italic gradient-text">Defined</span> <br> by Excellence
+                </h1>
+                <p class="animate-fade-in-up-delay-2 text-lg md:text-xl text-slate-300 max-w-2xl mx-auto mb-12 font-light leading-relaxed">
+                    Navigate complex legal landscapes with confidence. Expert advice, comprehensive law library, and premium representation.
+                </p>
+                <div class="animate-fade-in-up-delay-3 flex flex-col sm:flex-row gap-5 justify-center items-center">
+                    <a href="/law-library" class="btn-scale px-10 py-4 bg-brand-gold text-brand-navy font-semibold rounded-full hover:bg-white shadow-2xl shadow-brand-gold/30">
+                        Explore Law Library
+                    </a>
+                    <a href="/consultations/1" class="btn-scale px-10 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-semibold rounded-full hover:bg-white hover:text-brand-navy shadow-2xl">
+                        Book Consultation
+                    </a>
+                </div>
+                <div class="animate-fade-in-up-delay-4 mt-16 grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+                    <div class="text-center">
+                        <p class="text-3xl md:text-4xl font-serif text-brand-gold">500+</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider mt-1">Lawyers</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-3xl md:text-4xl font-serif text-brand-gold">10K+</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider mt-1">Cases Won</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-3xl md:text-4xl font-serif text-brand-gold">98%</p>
+                        <p class="text-xs text-slate-400 uppercase tracking-wider mt-1">Success Rate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-float">
+                <svg class="w-6 h-6 text-white/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
+        </section>
+
+        <!-- FEATURED LAWYERS SECTION -->
+        <section class="py-24 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <span class="text-brand-gold text-sm font-semibold uppercase tracking-widest">Expert Counsel</span>
+                    <h2 class="font-serif text-4xl md:text-5xl text-brand-navy mt-3 mb-4">Featured Attorneys</h2>
+                    <div class="w-24 h-1 bg-brand-gold mx-auto"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    {% for lawyer in featured_lawyers %}
+                    <div class="card-elevate group bg-white rounded-xl overflow-hidden shadow-lg border border-slate-200">
+                        <div class="img-zoom-container aspect-[4/3] relative">
+                            <img src="{% if lawyer.profile_image %}{{ url_for('static', filename='lawyer_profiles/' + lawyer.profile_image) }}{% else %}https://images.unsplash.com/photo-{{ ['1560250097-0b93528c311a', '1573496359142-b8d87734a5a2', '1556157382-97eda2d62296', '1472078045764-2744663e34ed', '1519085360753-af0119f7cbe7', '1507003211169-0a1dd7228f2d'][loop.index0 % 6] }}?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80{% endif %}" alt="{{ lawyer.name }}" class="w-full h-full object-cover">
+                            <a href="/lawyer/{{ lawyer.lawyer_id }}" class="absolute inset-0 bg-gradient-to-t from-brand-navy/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-4">
+                                <span class="text-white text-sm font-medium">View Profile →</span>
+                            </a>
+                        </div>
+                        <div class="p-6 lawyer-card-content">
+                            <div class="mb-3 flex items-center gap-1">
+                                {% set avg = (lawyer.avg_rating or 0)|float %}
+                                {% for i in range(5) %}
+                                <svg class="w-5 h-5 {% if i < avg %}text-brand-gold fill-current{% else %}text-slate-300{% endif %}" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                </svg>
+                                {% endfor %}
+                                <span class="text-xs text-slate-500 ml-2">({{ lawyer.total_reviews|int }} reviews)</span>
+                            </div>
+
+                            <h4 class="font-serif text-xl text-brand-navy group-hover:text-brand-gold transition-colors mb-2">{{ lawyer.name }}</h4>
+                            <p class="text-brand-gold text-sm font-medium uppercase tracking-wide mb-2">{{ lawyer.specialization }}</p>
+                            <div class="flex items-center gap-2 text-slate-500 text-sm mb-3">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                </svg>
+                                <span>{{ lawyer.city }}</span>
+                                <span class="mx-1">•</span>
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>{{ lawyer.experience }}+ years</span>
+                            </div>
+                            <p class="text-slate-600 text-sm font-light mb-4 line-clamp-2">{{ lawyer.description }}</p>
+                            <div class="flex items-center justify-between pt-4 border-t border-slate-200">
+                                <span class="text-brand-navy font-semibold">₹{{ lawyer.consultation_fee }}<span class="text-slate-500 text-sm font-normal">/consultation</span></span>
+                                <a href="/book-consultation/{{ lawyer.lawyer_id }}" class="btn-scale px-4 py-2 bg-brand-navy text-white text-sm font-medium rounded-full hover:bg-brand-gold transition-colors">Book Now</a>
+                            </div>
+                        </div>
+                    </div>
+                    {% else %}
+                    <div class="col-span-full text-center text-slate-500 py-8">
+                        No featured lawyers available yet.
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="text-center mt-12">
+                    <a href="/lawyers" class="btn-scale inline-block px-8 py-3 border-2 border-brand-navy text-brand-navy font-semibold rounded-full hover:bg-brand-navy hover:text-white transition-all">
+                        View All Lawyers
+                    </a>
+                </div>
+            </div>
+        </section>
+
+{% endblock %}

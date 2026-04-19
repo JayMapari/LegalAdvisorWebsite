@@ -1,0 +1,533 @@
+{% extends "base.html" %}
+
+{% block title %}Add New Law{% endblock %}
+
+{% block content %}
+<!-- Animated Background Elements -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-brand-gold/5 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute top-40 right-20 w-96 h-96 bg-brand-navy/5 rounded-full blur-3xl animate-zoom-slow"></div>
+    <div class="absolute bottom-20 left-1/3 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+</div>
+
+<!-- Page Header -->
+<section class="relative py-8 bg-gradient-to-br from-brand-light via-white to-brand-light border-b border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Breadcrumb -->
+        <nav class="flex items-center gap-2 text-sm text-slate-500 mb-4 animate-fade-in-up">
+            <a href="/admin-dashboard" class="hover:text-brand-gold transition-colors">Admin</a>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+            </svg>
+            <span class="text-brand-navy font-semibold">Add New Law</span>
+        </nav>
+
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 bg-brand-gold/20 rounded-xl flex items-center justify-center animate-fade-in-up">
+                <svg class="w-6 h-6 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+            </div>
+            <div class="animate-fade-in-up-delay-1">
+                <h1 class="font-serif text-3xl text-brand-navy font-light">
+                    Add <span class="italic gradient-text">New Law</span>
+                </h1>
+                <p class="text-slate-600 font-light text-sm">Create and publish legal information</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Form Section -->
+<section class="py-8 bg-gradient-to-b from-white to-brand-light">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Success Message -->
+        {% if message %}
+        <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-500 rounded-lg animate-fade-in-up">
+            <div class="flex items-start gap-3">
+                <svg class="w-5 h-5 text-green-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <div>
+                    <p class="text-sm font-semibold text-green-800">Success!</p>
+                    <p class="text-sm text-green-700 mt-1">{{ message }}</p>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Form Card -->
+        <div class="card-elevate bg-white/80 backdrop-blur-md rounded-2xl shadow-xl border border-slate-200 overflow-hidden animate-fade-in-up-delay-2">
+            
+            <form method="POST" class="p-6 md:p-8" id="add-law-form">
+                
+                <!-- SECTION 1: Basic Information -->
+                <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
+                        <div class="w-10 h-10 bg-brand-navy/10 rounded-xl flex items-center justify-center">
+                            <svg class="w-5 h-5 text-brand-navy" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-xl text-brand-navy font-semibold">Basic Information</h3>
+                            <p class="text-xs text-slate-500">Core details about this law</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <!-- CUSTOM SEARCHABLE DROPDOWN: Category -->
+                        <div class="md:col-span-2">
+                            <label class="block text-sm font-semibold text-slate-700 mb-2">
+                                Category <span class="text-red-500">*</span>
+                            </label>
+
+                            <div class="relative group" id="category-dropdown-container">
+                                <!-- Visible Input -->
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                        <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"></path>
+                                        </svg>
+                                    </div>
+                                    <input type="text"
+                                           id="category-display"
+                                           readonly
+                                           placeholder="Select Category"
+                                           class="w-full pl-12 pr-10 py-3.5 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-800 placeholder-slate-400 hover:border-slate-400 bg-white cursor-pointer"
+                                           onclick="toggleCategoryDropdown()">
+                                    <svg id="category-arrow" class="w-5 h-5 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 transition-transform duration-200 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
+                                </div>
+
+                                <!-- Hidden Input for Form Submission -->
+                                <input type="hidden" name="category_id" id="category-id-hidden" required>
+
+                                <!-- Dropdown Panel -->
+                                <div id="category-dropdown-panel"
+                                     class="absolute z-50 w-full mt-2 bg-white border border-slate-200 rounded-lg shadow-xl opacity-0 scale-95 pointer-events-none transition-all duration-200 origin-top overflow-hidden">
+
+                                    <!-- Search Input -->
+                                    <div class="p-2 border-b border-slate-100">
+                                        <div class="relative">
+                                            <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                                            </svg>
+                                            <input type="text"
+                                                   id="category-search"
+                                                   placeholder="Search categories..."
+                                                   class="w-full pl-9 pr-3 py-2 text-sm border border-slate-200 rounded-md focus:ring-1 focus:ring-brand-gold focus:border-transparent outline-none transition-all"
+                                                   onclick="event.stopPropagation()">
+                                        </div>
+                                    </div>
+
+                                    <!-- Options List -->
+                                    <div class="max-h-60 overflow-y-auto custom-scroll py-1" id="category-options-list">
+                                        {% for c in categories %}
+                                        <div class="category-option px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors flex items-center justify-between group"
+                                             data-value="{{ c.category_id }}"
+                                             data-label="{{ c.category_name }}"
+                                             onclick="selectCategory('{{ c.category_id }}', '{{ c.category_name }}')">
+                                            <span>{{ c.category_name }}</span>
+                                            <svg class="w-4 h-4 text-brand-gold opacity-0 transition-opacity check-icon" fill="currentColor" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                            </svg>
+                                        </div>
+                                        {% endfor %}
+                                        <!-- No Results Message -->
+                                        <div id="category-no-results" class="hidden px-4 py-3 text-sm text-slate-500 text-center italic">
+                                            No categories found
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Choose the appropriate legal category</p>
+                        </div>
+
+                        <!-- Act Name -->
+                        <div class="md:col-span-2">
+                            <label for="act_name" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Act Name <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    id="act_name" 
+                                    name="act_name" 
+                                    class="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-800 placeholder-slate-400 hover:border-slate-400"
+                                    placeholder="e.g., Indian Penal Code, Constitution of India"
+                                    required>
+                            </div>
+                        </div>
+
+                        <!-- Section Number -->
+                        <div>
+                            <label for="section_number" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Section Number
+                            </label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 20l4-16m2 16l4-16M6 9h14M4 15h14"></path>
+                                    </svg>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    id="section_number" 
+                                    name="section_number" 
+                                    class="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-800 placeholder-slate-400 hover:border-slate-400"
+                                    placeholder="e.g., Section 302, Article 21">
+                            </div>
+                        </div>
+
+                        <!-- Law Title -->
+                        <div>
+                            <label for="law_title" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Law Title <span class="text-red-500">*</span>
+                            </label>
+                            <div class="relative group">
+                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                                    <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                </div>
+                                <input 
+                                    type="text" 
+                                    id="law_title" 
+                                    name="law_title" 
+                                    class="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-800 placeholder-slate-400 hover:border-slate-400"
+                                    placeholder="e.g., Punishment for Murder"
+                                    required>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- SECTION 2: Explanation -->
+                <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
+                        <div class="w-10 h-10 bg-brand-gold/20 rounded-xl flex items-center justify-center">
+                            <svg class="w-5 h-5 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-xl text-brand-navy font-semibold">Explanation</h3>
+                            <p class="text-xs text-slate-500">Detailed explanation of the law</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="simple_explanation" class="block text-sm font-semibold text-slate-700 mb-2">
+                            Simple Explanation <span class="text-red-500">*</span>
+                        </label>
+                        <div class="relative group">
+                            <div class="absolute top-4 left-4 pointer-events-none">
+                                <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <textarea 
+                                id="simple_explanation" 
+                                name="simple_explanation" 
+                                rows="6" 
+                                class="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-800 placeholder-slate-400 hover:border-slate-400 resize-none"
+                                placeholder="Explain this law in simple, easy-to-understand language..."
+                                required></textarea>
+                        </div>
+                        <p class="text-xs text-slate-500 mt-2">Use clear, simple language that anyone can understand</p>
+                    </div>
+                </div>
+
+                <!-- SECTION 3: Additional Details -->
+                <div class="mb-8">
+                    <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-200">
+                        <div class="w-10 h-10 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="font-serif text-xl text-brand-navy font-semibold">Additional Details</h3>
+                            <p class="text-xs text-slate-500">Examples and consequences</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 gap-6">
+                        <!-- Example -->
+                        <div>
+                            <label for="example" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Example
+                            </label>
+                            <div class="relative group">
+                                <div class="absolute top-4 left-4 pointer-events-none">
+                                    <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                    </svg>
+                                </div>
+                                <textarea 
+                                    id="example" 
+                                    name="example" 
+                                    rows="4" 
+                                    class="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-800 placeholder-slate-400 hover:border-slate-400 resize-none"
+                                    placeholder="Provide a real-world example to illustrate this law..."></textarea>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Optional: Add a practical example</p>
+                        </div>
+
+                        <!-- Legal Consequence -->
+                        <div>
+                            <label for="legal_consequence" class="block text-sm font-semibold text-slate-700 mb-2">
+                                Legal Consequence
+                            </label>
+                            <div class="relative group">
+                                <div class="absolute top-4 left-4 pointer-events-none">
+                                    <svg class="w-5 h-5 text-slate-400 group-focus-within:text-brand-gold transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+                                    </svg>
+                                </div>
+                                <textarea 
+                                    id="legal_consequence" 
+                                    name="legal_consequence" 
+                                    rows="4" 
+                                    class="w-full pl-12 pr-4 py-3.5 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-800 placeholder-slate-400 hover:border-slate-400 resize-none"
+                                    placeholder="Describe the legal consequences of violating this law..."></textarea>
+                            </div>
+                            <p class="text-xs text-slate-500 mt-2">Optional: Explain penalties or consequences</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-slate-200">
+                    <button 
+                        type="submit" 
+                        id="submit-btn"
+                        class="btn-scale flex-1 px-8 py-4 bg-gradient-to-r from-brand-navy to-brand-gold text-white font-semibold rounded-lg hover:from-brand-gold hover:to-brand-navy shadow-lg shadow-brand-gold/30 transition-all flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span id="btn-text">Add Law</span>
+                        <svg id="btn-spinner" class="animate-spin w-5 h-5 hidden" fill="none" viewBox="0 0 24 24">
+                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                    </button>
+                    
+                    <a href="/admin-dashboard" class="btn-scale flex-1 px-8 py-4 bg-white border-2 border-slate-200 text-slate-700 font-semibold rounded-lg hover:border-brand-navy hover:text-brand-navy transition-all flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Back to Dashboard
+                    </a>
+                </div>
+
+            </form>
+
+            <!-- Security Note -->
+            <div class="px-6 md:px-8 py-4 bg-slate-50 border-t border-slate-200">
+                <p class="text-xs text-slate-500 flex items-center justify-center gap-1.5">
+                    <svg class="w-3.5 h-3.5 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    All information is securely stored and encrypted
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- Form JavaScript -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('add-law-form');
+    const submitBtn = document.getElementById('submit-btn');
+    const btnText = document.getElementById('btn-text');
+    const btnSpinner = document.getElementById('btn-spinner');
+    
+    // Form Submission with Loading State
+    if (form && submitBtn) {
+        form.addEventListener('submit', function() {
+            submitBtn.disabled = true;
+            btnText.textContent = 'Creating...';
+            btnSpinner.classList.remove('hidden');
+        });
+    }
+    
+    // Input Focus Animations
+    const inputs = document.querySelectorAll('input, textarea, select');
+    inputs.forEach(input => {
+        input.addEventListener('focus', function() {
+            this.parentElement.classList.add('scale-[1.01]');
+        });
+        input.addEventListener('blur', function() {
+            this.parentElement.classList.remove('scale-[1.01]');
+        });
+    });
+});
+
+// ── Custom Searchable Category Dropdown ──────────────────────────────────────
+let isDropdownOpen = false;
+const dropdownContainer = document.getElementById('category-dropdown-container');
+const dropdownPanel    = document.getElementById('category-dropdown-panel');
+const displayInput     = document.getElementById('category-display');
+const hiddenInput      = document.getElementById('category-id-hidden');
+const searchInput      = document.getElementById('category-search');
+const options          = document.querySelectorAll('.category-option');
+const noResultsMsg     = document.getElementById('category-no-results');
+const arrowIcon        = document.getElementById('category-arrow');
+
+function toggleCategoryDropdown() {
+    isDropdownOpen = !isDropdownOpen;
+    updateDropdownVisibility();
+    if (isDropdownOpen) {
+        searchInput.focus();
+    }
+}
+
+function updateDropdownVisibility() {
+    if (isDropdownOpen) {
+        dropdownPanel.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+        dropdownPanel.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+        arrowIcon.classList.add('rotate-180');
+    } else {
+        dropdownPanel.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+        dropdownPanel.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+        arrowIcon.classList.remove('rotate-180');
+        setTimeout(() => {
+            searchInput.value = '';
+            filterOptions('');
+        }, 200);
+    }
+}
+
+function selectCategory(id, label) {
+    hiddenInput.value = id;
+    displayInput.value = label;
+    displayInput.classList.add('text-slate-800', 'font-medium');
+    displayInput.classList.remove('text-slate-400');
+
+    options.forEach(opt => {
+        const icon = opt.querySelector('.check-icon');
+        if (opt.dataset.value === id) {
+            icon.classList.remove('opacity-0');
+        } else {
+            icon.classList.add('opacity-0');
+        }
+    });
+
+    isDropdownOpen = false;
+    updateDropdownVisibility();
+}
+
+function filterOptions(query) {
+    const lowerQuery = query.toLowerCase();
+    let hasResults = false;
+
+    options.forEach(opt => {
+        const label = opt.dataset.label.toLowerCase();
+        if (label.includes(lowerQuery)) {
+            opt.classList.remove('hidden');
+            hasResults = true;
+        } else {
+            opt.classList.add('hidden');
+        }
+    });
+
+    noResultsMsg.classList.toggle('hidden', hasResults);
+}
+
+searchInput.addEventListener('input', (e) => filterOptions(e.target.value));
+
+// Close on outside click
+document.addEventListener('click', (e) => {
+    if (isDropdownOpen && !dropdownContainer.contains(e.target)) {
+        isDropdownOpen = false;
+        updateDropdownVisibility();
+    }
+});
+
+// Prevent bubbling inside dropdown from closing it
+dropdownContainer.addEventListener('click', (e) => e.stopPropagation());
+</script>
+
+<!-- Custom Styles -->
+<style>
+/* Dropdown Animations */
+.dropdown-enter { opacity: 0; transform: scale(0.95); }
+.dropdown-enter-active {
+    opacity: 1; transform: scale(1);
+    transition: opacity 150ms cubic-bezier(0.4,0,0.2,1), transform 150ms cubic-bezier(0.4,0,0.2,1);
+}
+.dropdown-exit { opacity: 1; transform: scale(1); }
+.dropdown-exit-active {
+    opacity: 0; transform: scale(0.95);
+    transition: opacity 150ms cubic-bezier(0.4,0,0.2,1), transform 150ms cubic-bezier(0.4,0,0.2,1);
+}
+
+/* Custom Scrollbar for Dropdown */
+.custom-scroll::-webkit-scrollbar { width: 6px; }
+.custom-scroll::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+.custom-scroll::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+.custom-scroll::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; }
+.animate-fade-in-up-delay-1 { animation: fadeInUp 0.6s ease-out 0.1s forwards; opacity: 0; }
+.animate-fade-in-up-delay-2 { animation: fadeInUp 0.6s ease-out 0.2s forwards; opacity: 0; }
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50%       { transform: translateY(-10px); }
+}
+.animate-float { animation: float 6s ease-in-out infinite; }
+
+@keyframes zoomSlow {
+    0%, 100% { transform: scale(1); }
+    50%       { transform: scale(1.05); }
+}
+.animate-zoom-slow { animation: zoomSlow 20s ease-in-out infinite; }
+
+.card-elevate { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+.card-elevate:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+.btn-scale { transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+.btn-scale:hover  { transform: scale(1.02); }
+.btn-scale:active { transform: scale(0.98); }
+
+.gradient-text {
+    background: linear-gradient(135deg, #d4af37 0%, #f5e6a3 50%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+input:focus, textarea:focus, select:focus { transform: scale(1.01); }
+
+* {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+}
+
+@media (max-width: 768px) {
+    .md\:grid-cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+    .md\:p-8 { padding: 1.5rem; }
+    .sm\:flex-row { flex-direction: column; }
+}
+</style>
+{% endblock %}

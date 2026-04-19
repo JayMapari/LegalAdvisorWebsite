@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Sovereign | Precision in Practice</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&amp;family=Poppins:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-25..0&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-container-low": "#131b2e",
+                        "surface-variant": "#2d3449",
+                        "on-error-container": "#ffdad6",
+                        "primary-fixed-dim": "#e9c349",
+                        "outline-variant": "#45474c",
+                        "on-secondary-fixed": "#111c2d",
+                        "outline": "#8f9097",
+                        "surface-tint": "#e9c349",
+                        "surface-container-highest": "#2d3449",
+                        "on-surface-variant": "#c6c6cd",
+                        "secondary-fixed-dim": "#bcc7de",
+                        "background": "#0b1326",
+                        "on-background": "#dae2fd",
+                        "inverse-primary": "#735c00",
+                        "on-tertiary-fixed": "#0d1c2d",
+                        "on-primary-fixed-variant": "#574500",
+                        "surface": "#0b1326",
+                        "surface-dim": "#0b1326",
+                        "tertiary-container": "#091929",
+                        "secondary": "#bcc7de",
+                        "surface-bright": "#31394d",
+                        "surface-container-lowest": "#060e20",
+                        "on-secondary": "#263143",
+                        "on-secondary-fixed-variant": "#3c475a",
+                        "on-error": "#690005",
+                        "tertiary": "#b9c8de",
+                        "surface-container-high": "#222a3d",
+                        "secondary-fixed": "#d8e3fb",
+                        "inverse-surface": "#dae2fd",
+                        "primary-fixed": "#ffe088",
+                        "on-secondary-container": "#aeb9d0",
+                        "error": "#ffb4ab",
+                        "tertiary-fixed-dim": "#b9c8de",
+                        "secondary-container": "#3e495d",
+                        "on-primary-container": "#9d7e00",
+                        "primary": "#e9c349",
+                        "tertiary-fixed": "#d4e4fa",
+                        "error-container": "#93000a",
+                        "on-tertiary-container": "#748296",
+                        "on-tertiary": "#233143",
+                        "on-tertiary-fixed-variant": "#39485a",
+                        "on-primary-fixed": "#241a00",
+                        "surface-container": "#171f33",
+                        "on-primary": "#3c2f00",
+                        "primary-container": "#201700",
+                        "inverse-on-surface": "#283044",
+                        "on-surface": "#dae2fd"
+                    },
+                    fontFamily: {
+                        "headline": ["Poppins", "sans-serif"],
+                        "body": ["Manrope", "sans-serif"],
+                        "label": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+            -webkit-font-smoothing: antialiased;
+        }
+        .glass-nav {
+            background: rgba(23, 31, 51, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #e9c349 0%, #9d7e00 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .premium-shadow {
+            box-shadow: 0 20px 40px rgba(6, 14, 32, 0.5);
+        }
+    </style>
+</head>
+<body class="font-body selection:bg-primary/30 selection:text-primary">
+<!-- TopNavBar Component -->
+<nav class="fixed top-0 w-full z-50 glass-nav premium-shadow">
+<div class="flex justify-between items-center px-8 py-4 max-w-7xl mx-auto h-20">
+<!-- Brand Logo -->
+<a class="text-2xl font-bold tracking-tighter text-[#e9c349] font-headline" href="/">
+                The Sovereign
+            </a>
+<!-- Navigation Links (Web) -->
+<div class="hidden md:flex items-center gap-8 font-['Poppins',sans-serif] text-sm tracking-wide font-medium uppercase">
+<a class="text-[#dae2fd] hover:text-[#e9c349] transition-all duration-400 ease-in-out" href="/practice-areas">Practice Areas</a>
+<a class="text-[#dae2fd] hover:text-[#e9c349] transition-all duration-400 ease-in-out" href="/team">Our Team</a>
+<a class="text-[#dae2fd] hover:text-[#e9c349] transition-all duration-400 ease-in-out" href="/insights">Insights</a>
+                {% if session.get('role') == 'admin' %}
+                    <a class="text-[#e9c349] font-bold transition-all duration-400 ease-in-out" href="/admin/dashboard">Admin Portal</a>
+                {% elif session.get('role') == 'lawyer' %}
+                    <a class="text-[#e9c349] font-bold transition-all duration-400 ease-in-out" href="/cases">Case Files</a>
+                {% endif %}
+            </div>
+<!-- Search & Actions -->
+<div class="flex items-center gap-6">
+<!-- Search Bar -->
+<form action="/search" class="relative hidden lg:block" method="GET">
+<input class="bg-surface-container-low border-none text-on-surface text-sm rounded-sm pl-10 pr-4 py-2 w-64 focus:ring-1 focus:ring-primary transition-all duration-300" name="q" placeholder="Search case law..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg">search</span>
+</form>
+<div class="flex items-center gap-3">
+                    {% if session.get('user_id') %}
+                        <a class="bg-primary text-on-primary px-5 py-2 text-xs font-bold uppercase tracking-widest rounded-sm hover:brightness-110 transition-all active:scale-95 duration-100" href="/portal">
+                            Client Portal
+                        </a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="/logout">
+<span class="material-symbols-outlined">logout</span>
+</a>
+                    {% else %}
+                        <a class="text-[#dae2fd] text-xs font-bold uppercase tracking-widest px-4 py-2 hover:text-primary transition-colors" href="/login">
+                            Login
+                        </a>
+<a class="bg-primary text-on-primary px-5 py-2 text-xs font-bold uppercase tracking-widest rounded-sm hover:brightness-110 transition-all active:scale-95 duration-100" href="/consultation">
+                            Consultation
+                        </a>
+                    {% endif %}
+                </div>
+</div>
+</div>
+</nav>
+<!-- Content Canvas -->
+<main class="min-h-screen pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
+<!-- Flash Messages Logic -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="mb-12 space-y-4">
+                    {% for category, message in messages %}
+                        <div class="p-4 rounded-sm flex items-center gap-3 {% if category == 'error' %}bg-error-container/20 text-error border-l-2 border-error{% else %}bg-surface-container-high text-primary border-l-2 border-primary{% endif %}">
+<span class="material-symbols-outlined">error</span>
+<p class="text-sm font-medium">{{ message }}</p>
+</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <!-- Jinja Content Block -->
+<div class="animate-in fade-in slide-in-from-bottom-4 duration-700">
+            {% block content %}{% endblock %}
+        </div>
+</main>
+<!-- Footer Component -->
+<footer class="bg-[#0b1326] w-full pt-24 pb-12 border-t border-outline-variant/10">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-8 max-w-7xl mx-auto">
+<!-- Brand & Mission -->
+<div class="col-span-1 md:col-span-1">
+<div class="text-xl font-bold text-[#dae2fd] mb-6 font-headline">The Sovereign</div>
+<p class="font-['Poppins',sans-serif] text-sm leading-relaxed text-[#dae2fd]/60 mb-8">
+                    An elite legal collective dedicated to precision, discretion, and the relentless pursuit of favorable outcomes in complex litigation.
+                </p>
+<div class="flex gap-4">
+<a class="text-[#dae2fd]/40 hover:text-[#e9c349] transition-colors" href="#"><span class="material-symbols-outlined">public</span></a>
+<a class="text-[#dae2fd]/40 hover:text-[#e9c349] transition-colors" href="#"><span class="material-symbols-outlined">account_balance</span></a>
+</div>
+</div>
+<!-- Links Column 1 -->
+<div>
+<h4 class="text-[#e9c349] text-xs font-bold uppercase tracking-widest mb-6">Expertise</h4>
+<ul class="space-y-4 font-['Poppins',sans-serif] text-sm">
+<li><a class="text-[#dae2fd]/60 hover:text-[#e9c349] transition-colors" href="#">Corporate Strategy</a></li>
+<li><a class="text-[#dae2fd]/60 hover:text-[#e9c349] transition-colors" href="#">Intellectual Property</a></li>
+<li><a class="text-[#dae2fd]/60 hover:text-[#e9c349] transition-colors" href="#">International Law</a></li>
+<li><a class="text-[#dae2fd]/60 hover:text-[#e9c349] transition-colors" href="#">Crisis Management</a></li>
+</ul>
+</div>
+<!-- Links Column 2 -->
+<div>
+<h4 class="text-[#e9c349] text-xs font-bold uppercase tracking-widest mb-6">Resources</h4>
+<ul class="space-y-4 font-['Poppins',sans-serif] text-sm">
+<li><a class="text-[#dae2fd]/60 hover:text-[#e9c349] transition-colors" href="#">Privacy Policy</a></li>
+<li><a class="text-[#dae2fd]/60 hover:text-[#e9c349] transition-colors" href="#">Terms of Service</a></li>
+<li><a class="text-[#dae2fd]/60 hover:text-[#e9c349] transition-colors" href="#">Global Presence</a></li>
+<li><a class="text-[#dae2fd]/60 hover:text-[#e9c349] transition-colors" href="#">Office Locations</a></li>
+</ul>
+</div>
+<!-- Contact Column (Double Width Padding Emphasis) -->
+<div class="col-span-1">
+<h4 class="text-[#e9c349] text-xs font-bold uppercase tracking-widest mb-6">Headquarters</h4>
+<div class="space-y-4 font-['Poppins',sans-serif] text-sm text-[#dae2fd]/60">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-[#e9c349] text-lg">location_on</span>
+<span>1200 Avenue of the Americas<br/>Suite 400, New York, NY 10036</span>
+</div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[#e9c349] text-lg">call</span>
+<span>+1 (212) 555-0198</span>
+</div>
+<div class="pt-4">
+<a class="text-primary font-bold hover:underline" href="mailto:contact@sovereignlegal.com">
+                            contact@sovereignlegal.com
+                        </a>
+</div>
+</div>
+</div>
+</div>
+<!-- Copyright Row -->
+<div class="max-w-7xl mx-auto px-8 mt-24 pt-8 border-t border-outline-variant/10 flex flex-col md:flex-row justify-between items-center gap-6">
+<p class="font-['Poppins',sans-serif] text-xs text-[#dae2fd]/40">
+                © 2024 Sovereign Legal Group. All rights reserved. Precision in practice.
+            </p>
+<div class="flex gap-8">
+<a class="text-xs text-[#dae2fd]/40 hover:text-primary transition-colors uppercase tracking-widest font-bold" href="#">Disclaimer</a>
+<a class="text-xs text-[#dae2fd]/40 hover:text-primary transition-colors uppercase tracking-widest font-bold" href="#">Accessibility</a>
+</div>
+</div>
+</footer>
+<!-- Decorative Background Elements -->
+<div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+<div class="absolute top-[-10%] right-[-10%] w-[50%] h-[50%] bg-primary/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-secondary/5 blur-[120px] rounded-full"></div>
+</div>
+</body></html>

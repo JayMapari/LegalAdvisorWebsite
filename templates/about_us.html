@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}About Us{% endblock %}
+
+{% block content %}
+<section class="py-16 bg-gradient-to-b from-white to-brand-light">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10">
+            <span class="inline-block px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider bg-brand-gold/10 text-brand-gold">
+                About Legal Advisor
+            </span>
+            <h1 class="font-serif text-4xl md:text-5xl text-brand-navy mt-4">Guiding Citizens with Legal Clarity</h1>
+            <p class="mt-4 text-slate-600 font-light max-w-3xl mx-auto">
+                Legal Advisor helps users understand laws, connect with lawyers, generate documents, and manage consultations in one place.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="card-elevate bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                <h2 class="font-semibold text-brand-navy mb-2">Our Mission</h2>
+                <p class="text-sm text-slate-600 font-light">
+                    Make legal information accessible, understandable, and actionable for everyone.
+                </p>
+            </div>
+            <div class="card-elevate bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                <h2 class="font-semibold text-brand-navy mb-2">What We Offer</h2>
+                <p class="text-sm text-slate-600 font-light">
+                    Law library, AI legal tools, lawyer discovery, consultation booking, and case tracking.
+                </p>
+            </div>
+            <div class="card-elevate bg-white rounded-2xl border border-slate-200 shadow-sm p-6">
+                <h2 class="font-semibold text-brand-navy mb-2">Our Promise</h2>
+                <p class="text-sm text-slate-600 font-light">
+                    A secure and user-friendly platform focused on responsible legal guidance.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

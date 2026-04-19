@@ -1,0 +1,301 @@
+{% extends "base.html" %}
+
+{% block title %}Rights Categories{% endblock %}
+
+{% block content %}
+<!-- Animated Background Elements (Header Only) -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none -z-10">
+    <div class="absolute top-20 left-10 w-72 h-72 bg-brand-gold/10 rounded-full blur-3xl animate-float"></div>
+    <div class="absolute top-40 right-20 w-96 h-96 bg-brand-navy/5 rounded-full blur-3xl animate-zoom-slow"></div>
+    <div class="absolute bottom-20 left-1/3 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl animate-float" style="animation-delay: 2s;"></div>
+</div>
+
+<!-- Hero Header Section -->
+<section class="relative py-20 bg-gradient-to-br from-brand-light via-white to-brand-light overflow-hidden">
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <span class="inline-block py-2 px-5 border border-brand-gold/50 rounded-full text-brand-gold text-xs font-semibold tracking-widest uppercase mb-6 animate-fade-in-up shadow-lg shadow-brand-gold/10">
+            ✦ Know Your Rights
+        </span>
+        <h1 class="animate-fade-in-up-delay-1 font-serif text-4xl md:text-5xl lg:text-6xl text-brand-navy font-light leading-tight mb-6">
+            Rights <span class="italic gradient-text">Categories</span>
+        </h1>
+        <div class="w-24 h-1 bg-gradient-to-r from-transparent via-brand-gold to-transparent mx-auto mb-8"></div>
+        <p class="animate-fade-in-up-delay-2 text-lg text-slate-600 max-w-3xl mx-auto font-light leading-relaxed">
+            Explore different categories of legal rights and understand protections available to you.
+        </p>
+    </div>
+</section>
+
+<!-- Premium Interactive Categories Grid Section -->
+<section class="py-20 bg-gradient-to-b from-white to-brand-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {% if categories %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="tiles-container">
+            {% for cat in categories %}
+            {% set color_variants = ['from-brand-navy/5 to-brand-gold/5', 'from-brand-gold/5 to-brand-navy/5', 'from-blue-500/5 to-brand-gold/5', 'from-amber-500/5 to-brand-navy/5', 'from-slate-500/5 to-brand-gold/5', 'from-indigo-500/5 to-brand-navy/5'] %}
+            {% set color_idx = loop.index0 % 6 %}
+            
+            <!-- Premium Interactive Rights Category Tile -->
+            <a href="/rights/{{ cat.category }}" 
+               class="group relative block rounded-2xl p-1 perspective-1000 tile-3d"
+               data-tilt
+               style="will-change: transform;">
+                
+                <!-- Animated Gradient Border -->
+                <div class="absolute inset-0 rounded-2xl bg-gradient-to-r from-brand-gold via-brand-navy to-brand-gold bg-[length:200%_100%] opacity-0 group-hover:opacity-100 transition-opacity duration-500 animate-gradient-shift"></div>
+                
+                <!-- Inner Card -->
+                <div class="relative h-full bg-white/80 backdrop-blur-md rounded-2xl p-8 overflow-hidden transition-all duration-500 group-hover:shadow-2xl group-hover:shadow-brand-gold/20"
+                     style="transform-style: preserve-3d;">
+                    
+                    <!-- Cursor Glow Effect -->
+                    <div class="cursor-glow absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                         style="background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(212, 175, 55, 0.15), transparent 40%);"></div>
+                    
+                    <!-- Background Gradient Layer -->
+                    <div class="absolute inset-0 bg-gradient-to-br {{ color_variants[color_idx] }} opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                    
+                    <!-- Content Layer (3D elevated) -->
+                    <div class="relative z-10" style="transform: translateZ(20px);">
+                        
+                        <!-- Icon Section with Animation -->
+                        <div class="flex items-center justify-between mb-8">
+                            <div class="relative w-16 h-16 rounded-2xl bg-gradient-to-br from-brand-navy/10 to-brand-gold/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-500 ease-out overflow-hidden">
+                                <!-- Icon Background Glow -->
+                                <div class="absolute inset-0 bg-brand-gold/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-md"></div>
+                                <!-- Icon -->
+                                <svg class="relative w-8 h-8 text-brand-navy group-hover:text-brand-gold transition-colors duration-500 group-hover:rotate-12" 
+                                     fill="none" 
+                                     stroke="currentColor" 
+                                     viewBox="0 0 24 24"
+                                     style="will-change: transform;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                                </svg>
+                            </div>
+                            
+                            <!-- Arrow with Slide Animation -->
+                            <div class="relative w-10 h-10 rounded-full bg-slate-100 flex items-center justify-center overflow-hidden group-hover:bg-brand-gold transition-colors duration-500">
+                                <svg class="w-5 h-5 text-slate-400 group-hover:text-white transition-all duration-500 group-hover:translate-x-1" 
+                                     fill="none" 
+                                     stroke="currentColor" 
+                                     viewBox="0 0 24 24"
+                                     style="will-change: transform;">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <!-- Text Content -->
+                        <div class="mb-6">
+                            <!-- Category Title with Lift Animation -->
+                            <h3 class="font-serif text-2xl text-brand-navy font-light mb-3 group-hover:-translate-y-1 transition-transform duration-500"
+                                style="will-change: transform;">
+                                {{ cat.category }}
+                            </h3>
+                            
+                            <!-- Description with Fade Enhancement -->
+                            <p class="text-slate-600 text-sm font-light leading-relaxed opacity-70 group-hover:opacity-100 transition-opacity duration-500">
+                                Understand your rights related to this category and learn about legal protections available.
+                            </p>
+                        </div>
+
+                        <!-- Action Section -->
+                        <div class="pt-6 border-t border-slate-200/50 group-hover:border-brand-gold/30 transition-colors duration-500">
+                            <div class="flex items-center justify-between">
+                                <span class="text-brand-gold text-sm font-semibold inline-flex items-center gap-2 overflow-hidden">
+                                    <span class="inline-block group-hover:translate-x-1 transition-transform duration-500" style="will-change: transform;">
+                                        Explore Rights
+                                    </span>
+                                    <svg class="w-4 h-4 inline-block group-hover:translate-x-2 transition-transform duration-500" 
+                                         fill="none" 
+                                         stroke="currentColor" 
+                                         viewBox="0 0 24 24"
+                                         style="will-change: transform;">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                    </svg>
+                                </span>
+                                <span class="text-xs text-slate-400 font-light">{{ loop.index }}/{{ categories|length }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Hover Overlay Layer -->
+                    <div class="absolute inset-0 bg-gradient-to-t from-brand-gold/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        <!-- Call to Action Section -->
+        <div class="mt-16 card-elevate bg-gradient-to-br from-brand-navy to-slate-900 rounded-2xl p-8 shadow-lg text-white text-center">
+            <div class="max-w-3xl mx-auto">
+                <div class="w-16 h-16 bg-brand-gold/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <h2 class="font-serif text-2xl md:text-3xl font-light mb-4">
+                    Need Help Understanding Your Rights?
+                </h2>
+                <p class="text-slate-300 font-light mb-8 max-w-2xl mx-auto">
+                    Get personalized guidance from legal experts who can help you understand and protect your legal rights.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="/qa" class="btn-scale px-8 py-4 bg-brand-gold text-brand-navy font-semibold rounded-full hover:bg-white shadow-lg shadow-brand-gold/30 transition-all">
+                        Ask AI Assistant
+                    </a>
+                    <a href="/lawyers" class="btn-scale px-8 py-4 bg-white/10 backdrop-blur-md border border-white/30 text-white font-semibold rounded-full hover:bg-white hover:text-brand-navy shadow-lg transition-all">
+                        Consult a Lawyer
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {% else %}
+        <!-- Empty State -->
+        <div class="text-center py-20 animate-fade-in-up">
+            <div class="w-24 h-24 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <svg class="w-12 h-12 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                </svg>
+            </div>
+            <h3 class="font-serif text-2xl text-brand-navy mb-2">No Rights Categories Available</h3>
+            <p class="text-slate-600 font-light mb-6">Rights categories will appear here once added by administrators.</p>
+            <a href="/" class="inline-block px-6 py-3 bg-brand-gold text-brand-navy font-semibold rounded-full hover:bg-brand-navy hover:text-white transition-all">
+                Return to Home
+            </a>
+        </div>
+        {% endif %}
+
+    </div>
+</section>
+
+<!-- Additional Resources Section -->
+<section class="py-16 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h2 class="font-serif text-2xl text-brand-navy mb-4">Additional Legal Resources</h2>
+            <div class="w-24 h-1 bg-brand-gold mx-auto"></div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <a href="/law-library" class="card-elevate group p-6 bg-gradient-to-br from-brand-navy/5 to-brand-navy/10 rounded-xl border border-brand-navy/20 hover:border-brand-gold/50 transition-all">
+                <div class="flex items-center gap-4 mb-3">
+                    <div class="w-12 h-12 bg-brand-navy/20 rounded-xl flex items-center justify-center group-hover:bg-brand-gold/20 transition-colors">
+                        <svg class="w-6 h-6 text-brand-navy group-hover:text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-lg font-semibold text-brand-navy group-hover:text-brand-gold transition-colors">Law Library</h3>
+                </div>
+                <p class="text-slate-600 text-sm font-light">Browse comprehensive legal documents and statutes</p>
+            </a>
+
+            <a href="/qa" class="card-elevate group p-6 bg-gradient-to-br from-brand-gold/5 to-brand-gold/10 rounded-xl border border-brand-gold/20 hover:border-brand-gold/50 transition-all">
+                <div class="flex items-center gap-4 mb-3">
+                    <div class="w-12 h-12 bg-brand-gold/20 rounded-xl flex items-center justify-center group-hover:bg-brand-gold/30 transition-colors">
+                        <svg class="w-6 h-6 text-brand-gold" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-lg font-semibold text-brand-navy group-hover:text-brand-gold transition-colors">Legal Q&A</h3>
+                </div>
+                <p class="text-slate-600 text-sm font-light">Get answers to common legal questions</p>
+            </a>
+
+            <a href="/lawyers" class="card-elevate group p-6 bg-gradient-to-br from-green-500/5 to-green-500/10 rounded-xl border border-green-500/20 hover:border-green-500/50 transition-all">
+                <div class="flex items-center gap-4 mb-3">
+                    <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center group-hover:bg-green-500/30 transition-colors">
+                        <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-serif text-lg font-semibold text-brand-navy group-hover:text-green-600 transition-colors">Find Lawyers</h3>
+                </div>
+                <p class="text-slate-600 text-sm font-light">Connect with experienced legal professionals</p>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Premium Tile Interaction Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const tiles = document.querySelectorAll('.tile-3d');
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Disable 3D tilt on mobile for performance
+    if (isMobile) {
+        tiles.forEach(tile => {
+            tile.removeAttribute('data-tilt');
+        });
+        return;
+    }
+    
+    tiles.forEach(tile => {
+        const card = tile.querySelector('.cursor-glow');
+        let rect;
+        
+        // Mouse move for glow effect
+        tile.addEventListener('mousemove', (e) => {
+            rect = tile.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            // Update glow position
+            if (card) {
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            }
+            
+            // 3D tilt effect
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const rotateX = ((e.clientY - centerY) / rect.height) * -8;
+            const rotateY = ((e.clientX - centerX) / rect.width) * 8;
+            
+            tile.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+        });
+        
+        // Mouse leave - reset
+        tile.addEventListener('mouseleave', () => {
+            tile.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
+            tile.style.transition = 'transform 0.5s ease';
+        });
+        
+        // Mouse enter - remove transition for smooth movement
+        tile.addEventListener('mouseenter', () => {
+            tile.style.transition = 'none';
+        });
+    });
+});
+</script>
+
+<!-- Custom Styles for Animations -->
+<style>
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+@keyframes gradient-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.animate-gradient-shift {
+    animation: gradient-shift 3s ease infinite;
+}
+
+.cursor-glow {
+    transition: opacity 0.3s ease;
+}
+</style>
+{% endblock %}

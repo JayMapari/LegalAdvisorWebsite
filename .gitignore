@@ -1,0 +1,39 @@
+# Python virtual environments
+.venv/
+venv/
+env/
+
+# Python cache/artifacts
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+.pytest_cache/
+.mypy_cache/
+
+# Secrets and local config
+.env
+.env.*
+*.pem
+*.key
+sql workbench password.txt
+
+# Local runtime data
+*.sqlite3
+*.db
+instance/
+
+# OS/editor files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Build/log output
+*.log
+dist/
+build/
+
+# Local tooling cache
+.tools/

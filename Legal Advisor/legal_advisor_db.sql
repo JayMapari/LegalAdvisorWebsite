@@ -1,8 +1,10 @@
--- MySQL dump 10.13  Distrib 8.0.44, for Win64 (x86_64)
+CREATE DATABASE  IF NOT EXISTS `legal_advisor_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `legal_advisor_db`;
+-- MySQL dump 10.13  Distrib 8.0.45, for Win64 (x86_64)
 --
 -- Host: localhost    Database: legal_advisor_db
 -- ------------------------------------------------------
--- Server version	8.0.44
+-- Server version	8.0.45
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -57,7 +59,7 @@ CREATE TABLE `case_documents` (
   PRIMARY KEY (`document_id`),
   KEY `case_id` (`case_id`),
   CONSTRAINT `case_documents_ibfk_1` FOREIGN KEY (`case_id`) REFERENCES `cases` (`case_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -66,7 +68,7 @@ CREATE TABLE `case_documents` (
 
 LOCK TABLES `case_documents` WRITE;
 /*!40000 ALTER TABLE `case_documents` DISABLE KEYS */;
-INSERT INTO `case_documents` VALUES (1,2,'Screenshot_2026-02-02_132429.png','static/uploads\\Screenshot_2026-02-02_132429.png','2026-02-28 20:15:43'),(8,10,'cloud_practical_5.docx','static/uploads\\cloud_practical_5.docx','2026-03-21 20:38:58'),(9,11,'Screenshot_2026-03-11_023013.png','static/uploads\\Screenshot_2026-03-11_023013.png','2026-03-21 20:46:39'),(10,3,'Screenshot_2026-03-11_025532.png','static/uploads\\Screenshot_2026-03-11_025532.png','2026-03-21 21:07:57'),(11,12,'Screenshot_2026-03-11_022949.png','static/uploads\\Screenshot_2026-03-11_022949.png','2026-03-21 21:08:34'),(13,11,'bubble sort.pdf',NULL,'2026-03-21 21:44:33'),(14,22,'25f01a1e-7781-4555-87ac-22946cc17159.jpg',NULL,'2026-03-26 06:55:11'),(15,23,'Screenshot 2026-03-25 214132.png',NULL,'2026-03-26 07:41:25');
+INSERT INTO `case_documents` VALUES (1,2,'Screenshot_2026-02-02_132429.png','static/uploads\\Screenshot_2026-02-02_132429.png','2026-02-28 20:15:43'),(8,10,'cloud_practical_5.docx','static/uploads\\cloud_practical_5.docx','2026-03-21 20:38:58'),(9,11,'Screenshot_2026-03-11_023013.png','static/uploads\\Screenshot_2026-03-11_023013.png','2026-03-21 20:46:39'),(10,3,'Screenshot_2026-03-11_025532.png','static/uploads\\Screenshot_2026-03-11_025532.png','2026-03-21 21:07:57'),(11,12,'Screenshot_2026-03-11_022949.png','static/uploads\\Screenshot_2026-03-11_022949.png','2026-03-21 21:08:34'),(13,11,'bubble sort.pdf',NULL,'2026-03-21 21:44:33'),(14,22,'25f01a1e-7781-4555-87ac-22946cc17159.jpg',NULL,'2026-03-26 06:55:11'),(15,23,'Screenshot 2026-03-25 214132.png',NULL,'2026-03-26 07:41:25'),(16,30,'screen.png',NULL,'2026-04-05 18:41:06'),(18,32,'screen.png',NULL,'2026-04-05 18:42:37'),(19,36,'screen.png',NULL,'2026-04-05 18:49:24'),(20,42,'68bfc33bc853e.jpg',NULL,'2026-04-05 22:08:09'),(21,43,'26-06-2023-LOGO-1060-1687791740.jpg',NULL,'2026-04-06 08:40:00'),(22,44,'26-06-2023-LOGO-1060-1687791740.jpg',NULL,'2026-04-06 09:07:14'),(23,44,'68bfc33bc853e.jpg',NULL,'2026-04-06 09:08:40'),(24,32,'bubble sort.pdf',NULL,'2026-04-18 16:44:48');
 /*!40000 ALTER TABLE `case_documents` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +84,7 @@ CREATE TABLE `case_lawyer` (
   `case_id` int DEFAULT NULL,
   `lawyer_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +93,7 @@ CREATE TABLE `case_lawyer` (
 
 LOCK TABLES `case_lawyer` WRITE;
 /*!40000 ALTER TABLE `case_lawyer` DISABLE KEYS */;
-INSERT INTO `case_lawyer` VALUES (1,7,1),(2,8,1),(3,9,1),(4,10,1),(5,11,1),(6,12,1),(7,13,1),(8,14,1),(9,15,1),(10,16,1),(11,17,1),(12,18,1),(13,19,1),(14,20,1),(15,21,1),(16,22,2),(17,23,18);
+INSERT INTO `case_lawyer` VALUES (1,7,1),(2,8,1),(3,9,1),(4,10,1),(5,11,1),(6,12,1),(7,13,1),(8,14,1),(9,15,1),(10,16,1),(11,17,1),(12,18,1),(13,19,1),(14,20,1),(15,21,1),(16,22,2),(17,23,18),(18,31,1),(19,32,1),(20,33,1),(21,34,1),(22,35,1),(23,36,1),(24,37,1),(25,38,1),(26,39,1),(27,40,1),(28,41,1),(29,42,1),(30,43,1),(31,44,1),(32,45,1);
 /*!40000 ALTER TABLE `case_lawyer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -112,7 +114,7 @@ CREATE TABLE `case_timeline` (
   PRIMARY KEY (`timeline_id`),
   KEY `case_id` (`case_id`),
   CONSTRAINT `case_timeline_ibfk_1` FOREIGN KEY (`case_id`) REFERENCES `cases` (`case_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -121,7 +123,7 @@ CREATE TABLE `case_timeline` (
 
 LOCK TABLES `case_timeline` WRITE;
 /*!40000 ALTER TABLE `case_timeline` DISABLE KEYS */;
-INSERT INTO `case_timeline` VALUES (1,2,'2026-03-09','submiting document','4wtfe','2026-02-28 20:15:26'),(5,22,'2026-03-20','  m mn','nmb ','2026-03-26 06:55:05');
+INSERT INTO `case_timeline` VALUES (1,2,'2026-03-09','submiting document','4wtfe','2026-02-28 20:15:26'),(5,22,'2026-03-20','  m mn','nmb ','2026-03-26 06:55:05'),(7,42,'2026-04-15','kmosmef',' kfsemfioemf','2026-04-05 23:06:32'),(8,43,'2026-04-16','gjy','hjggj','2026-04-06 08:39:02'),(9,43,'2026-04-07','bhjv','bhjmb','2026-04-06 08:39:19'),(10,44,'2026-04-08','next heiring','gfhfh','2026-04-06 09:09:37'),(11,44,'2026-04-23','submit document','to lawer','2026-04-06 09:10:05');
 /*!40000 ALTER TABLE `case_timeline` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +152,7 @@ CREATE TABLE `cases` (
   KEY `fk_case_lawyer` (`lawyer_id`),
   CONSTRAINT `cases_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
   CONSTRAINT `fk_case_lawyer` FOREIGN KEY (`lawyer_id`) REFERENCES `lawyers` (`lawyer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +161,7 @@ CREATE TABLE `cases` (
 
 LOCK TABLES `cases` WRITE;
 /*!40000 ALTER TABLE `cases` DISABLE KEYS */;
-INSERT INTO `cases` VALUES (1,'fraud','cyber crime','high court','2026-03-18','Ongoing','adasac','2026-02-28 19:44:22',NULL,NULL,NULL,0),(2,'DAAD','ADADS','gwegwef','2026-03-03','Open','fasswf','2026-02-28 19:49:57',NULL,NULL,NULL,0),(3,'robbery','crime','pune high court','2026-03-04','Ongoing','czsasfasf','2026-03-02 11:10:50',7,NULL,NULL,0),(10,'smuggling','drugs','high court','2026-04-24','Ongoing','jail','2026-03-21 20:38:38',7,NULL,NULL,0),(11,'sample','sample','high court','2026-03-26','Open','ajhbjhbau','2026-03-21 20:46:28',7,NULL,NULL,0),(12,'a','a','a','2026-04-01','Open','gyug','2026-03-21 21:08:23',7,NULL,NULL,0),(14,'ewfw','crime','high court','2026-03-24','Open','fsfcaf','2026-03-23 13:16:44',11,NULL,NULL,0),(19,'Student Rights Voilance','Rights Voilance','high court','2026-03-24','Open','collage charging extra fees on industrial visit','2026-03-23 14:09:35',1,NULL,NULL,0),(20,'online fraud','crime','pune high court','2026-03-23','Open','hgygj','2026-03-23 14:14:43',20,NULL,NULL,0),(21,'fvhgf','sdvsdmncn','vsvdvmnsvm','2026-03-24','Open','bjhgerb','2026-03-23 14:21:20',20,NULL,NULL,0),(22,'vhvh','vhgvh','hgvhv','2026-03-27','Ongoing','  jb','2026-03-26 06:54:45',1,NULL,NULL,0),(23,'dfs','scsscd','cssc','2026-03-27','Open','bhjggv','2026-03-26 07:41:13',35,NULL,NULL,0);
+INSERT INTO `cases` VALUES (1,'fraud','cyber crime','high court','2026-03-18','Ongoing','adasac','2026-02-28 19:44:22',NULL,NULL,NULL,0),(2,'DAAD','ADADS','gwegwef','2026-03-03','Open','fasswf','2026-02-28 19:49:57',NULL,NULL,NULL,0),(3,'robbery','crime','pune high court','2026-03-04','Ongoing','czsasfasf','2026-03-02 11:10:50',7,NULL,NULL,0),(10,'smuggling','drugs','high court','2026-04-24','Ongoing','jail','2026-03-21 20:38:38',7,NULL,NULL,0),(11,'sample','sample','high court','2026-03-26','Open','ajhbjhbau','2026-03-21 20:46:28',7,NULL,NULL,0),(12,'a','a','a','2026-04-01','Open','gyug','2026-03-21 21:08:23',7,NULL,NULL,0),(19,'Student Rights Voilance','Rights Voilance','high court','2026-03-24','Open','collage charging extra fees on industrial visit','2026-03-23 14:09:35',1,NULL,NULL,0),(20,'online fraud','crime','pune high court','2026-03-23','Open','hgygj','2026-03-23 14:14:43',20,NULL,NULL,0),(21,'fvhgf','sdvsdmncn','vsvdvmnsvm','2026-03-24','Open','bjhgerb','2026-03-23 14:21:20',20,NULL,NULL,0),(22,'vhvh','vhgvh','hgvhv','2026-03-27','Ongoing','  jb','2026-03-26 06:54:45',1,NULL,NULL,0),(23,'dfs','scsscd','cssc','2026-03-27','Open','bhjggv','2026-03-26 07:41:13',35,NULL,NULL,0),(30,'sfisoeifj','Property','skenfose','2026-04-14','Open','sklsemfose','2026-04-01 19:45:05',37,NULL,NULL,0),(32,'fsioejfoseifj','sknfoisejfose','a flesiofje','2026-04-14','Open','lfwoeifmseoif','2026-04-01 20:00:12',37,NULL,NULL,0),(33,'snfsief','Criminal','snfoiesf','2026-04-14','Ongoing','sknfosief','2026-04-01 20:13:00',41,NULL,NULL,0),(34,'foijeofisjoeif','Civil','nsoifjsoe','2026-04-15','Open','nsoifjose','2026-04-01 20:13:32',41,NULL,NULL,0),(36,'msfoes','Criminal','s fseiof','2026-04-14','Open','semfosief','2026-04-01 20:17:36',37,NULL,NULL,0),(37,'smfoiejofis','smlefposeofk','s fsefjsoei','2026-04-15','Open','asfoiesejiofse','2026-04-01 20:18:10',37,NULL,NULL,0),(38,' joaeifjoew','Criminal','ifjoewsijf','2026-04-03','Open','afnewiojfos','2026-04-02 08:30:37',1,NULL,NULL,0),(41,'gggggggggggggg','nlmlmm','jbugiu','2026-04-16','Open','smkfmposemf','2026-04-05 19:12:03',37,NULL,NULL,0),(42,'Jay Mapari','snefoieofe','smpefoepofk','2026-04-15','Open','msfemofwe','2026-04-05 22:08:00',11,NULL,NULL,0),(43,'abc','civil','high','2026-04-07','Open','gbtgbb','2026-04-06 08:38:28',1,NULL,NULL,0),(44,'gfh','cvb','high court','2026-04-07','Ongoing','gghfh','2026-04-06 09:06:41',1,NULL,NULL,0),(45,'skjefoije','cyber case','high court','2026-04-18','Open','sfoeijfei','2026-04-15 16:03:43',44,NULL,NULL,0);
 /*!40000 ALTER TABLE `cases` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -227,6 +229,37 @@ INSERT INTO `cases_new` VALUES (1,'fraud','cyber crime','high court','2026-03-18
 UNLOCK TABLES;
 
 --
+-- Table structure for table `chat_messages`
+--
+
+DROP TABLE IF EXISTS `chat_messages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `chat_messages` (
+  `message_id` int NOT NULL AUTO_INCREMENT,
+  `consultation_id` int DEFAULT NULL,
+  `sender_id` int DEFAULT NULL,
+  `sender_role` varchar(20) DEFAULT NULL,
+  `message` text,
+  `sent_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `attachment_path` varchar(512) DEFAULT NULL,
+  `attachment_original_name` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`message_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `chat_messages`
+--
+
+LOCK TABLES `chat_messages` WRITE;
+/*!40000 ALTER TABLE `chat_messages` DISABLE KEYS */;
+INSERT INTO `chat_messages` VALUES (1,55,1,'lawyer','hi','2026-04-10 23:10:27','2026-04-10 23:10:27',NULL,NULL),(2,55,1,'lawyer','hey','2026-04-10 23:10:38','2026-04-10 23:10:38',NULL,NULL),(3,60,1,'lawyer','hey demo','2026-04-10 23:10:53','2026-04-10 23:10:53',NULL,NULL),(4,60,44,'user','hbhjb','2026-04-10 23:11:39','2026-04-10 23:11:39',NULL,NULL),(5,55,1,'lawyer','hi','2026-04-11 07:14:03','2026-04-11 07:14:03',NULL,NULL),(6,63,1,'lawyer','sajbdawhbwhd','2026-04-11 07:24:55','2026-04-11 07:24:55',NULL,NULL),(7,63,1,'lawyer','jhdbHJB','2026-04-11 07:25:05','2026-04-11 07:25:05',NULL,NULL),(8,68,1,'admin','hi','2026-04-11 08:21:16','2026-04-11 08:21:16',NULL,NULL),(9,68,1,'lawyer','i am good','2026-04-11 08:26:04','2026-04-11 08:26:04',NULL,NULL),(10,71,44,'user','hi','2026-04-11 16:46:42','2026-04-11 16:46:42',NULL,NULL),(11,71,44,'user','hello demo 1','2026-04-11 16:46:58','2026-04-11 16:46:58',NULL,NULL),(12,71,1,'lawyer','skmepfome','2026-04-11 19:12:48','2026-04-11 19:12:48',NULL,NULL),(13,79,37,'admin','fsnoeif','2026-04-11 19:32:11','2026-04-11 19:32:11',NULL,NULL),(14,72,1,'lawyer','f liesjfoe','2026-04-11 20:21:04','2026-04-11 20:21:04',NULL,NULL),(15,72,1,'lawyer','jnkn','2026-04-11 22:15:05','2026-04-11 22:15:05','chat_uploads/72_2056aecbe322800b.jpg','ai-generated-legal-symbolism-iconic-scale-of-justice-isolated-on-dark-background-photo.jpg'),(16,72,1,'lawyer','','2026-04-11 22:15:26','2026-04-11 22:15:26','chat_uploads/72_a45217c00c94fc51.pdf','legal_document_1.pdf'),(17,79,37,'admin','slmfeeo','2026-04-15 21:25:33','2026-04-15 21:25:33',NULL,NULL);
+/*!40000 ALTER TABLE `chat_messages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `consultations`
 --
 
@@ -245,12 +278,13 @@ CREATE TABLE `consultations` (
   `payment_status` varchar(20) DEFAULT 'Pending',
   `payment_method` varchar(50) DEFAULT NULL,
   `document` varchar(255) DEFAULT NULL,
+  `video_link` text,
   PRIMARY KEY (`consultation_id`),
   KEY `user_id` (`user_id`),
   KEY `lawyer_id` (`lawyer_id`),
   CONSTRAINT `consultations_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE,
   CONSTRAINT `consultations_ibfk_2` FOREIGN KEY (`lawyer_id`) REFERENCES `lawyers` (`lawyer_id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=81 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -259,7 +293,7 @@ CREATE TABLE `consultations` (
 
 LOCK TABLES `consultations` WRITE;
 /*!40000 ALTER TABLE `consultations` DISABLE KEYS */;
-INSERT INTO `consultations` VALUES (27,10,1,'Chat','2026-03-19','dad','Rejected','2026-03-17 20:06:10','Pending',NULL,NULL),(32,10,1,'Chat','2026-03-19','43tt','Pending','2026-03-17 20:48:45','Pending','Cash',NULL);
+INSERT INTO `consultations` VALUES (65,11,1,'Audio Call','2026-04-28','ASCS','Approved','2026-04-11 07:27:06','Pending',NULL,NULL,NULL),(66,11,1,'Video Call','2026-04-21','FVSDVF','Approved','2026-04-11 07:34:10','Pending',NULL,NULL,NULL),(67,1,1,'Audio Call','2026-04-12','hjb','Approved','2026-04-11 08:02:08','Pending',NULL,NULL,NULL),(68,1,1,'Chat','2026-04-13','qwdfqw','Approved','2026-04-11 08:20:56','Pending',NULL,NULL,NULL),(69,52,1,'Audio Call','2026-04-23','bnjk','Approved','2026-04-11 10:38:32','Pending',NULL,NULL,NULL),(71,44,1,'Chat','2026-04-14','efbeafhqj','Approved','2026-04-11 16:45:07','Pending',NULL,NULL,NULL),(72,11,1,'Chat','2026-04-14','efbeafhqj','Approved','2026-04-11 16:45:58','Pending',NULL,NULL,NULL),(73,44,1,'Audio Call','2026-04-12','faf','Approved','2026-04-11 16:47:18','Pending',NULL,NULL,NULL),(74,11,1,'Audio Call','2026-04-12','faf','Approved','2026-04-11 16:48:08','Pending',NULL,NULL,NULL),(77,44,1,'Video Call','2026-04-15','jbhubj','Approved','2026-04-11 16:58:28','Pending',NULL,NULL,'https://meet.jit.si/legaladvisor-44-1'),(79,37,1,'Chat','2026-04-13','ifjsoeifjose','Approved','2026-04-11 17:57:04','Pending',NULL,NULL,NULL),(80,37,1,'Video Call','2026-04-11','sfiosmeoifme','Approved','2026-04-11 18:07:36','Pending',NULL,NULL,'https://meet.jit.si/legaladvisor-37-1');
 /*!40000 ALTER TABLE `consultations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -304,7 +338,7 @@ CREATE TABLE `forwarded_documents` (
   `forwarded_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `forwarded_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`forward_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -313,7 +347,7 @@ CREATE TABLE `forwarded_documents` (
 
 LOCK TABLES `forwarded_documents` WRITE;
 /*!40000 ALTER TABLE `forwarded_documents` DISABLE KEYS */;
-INSERT INTO `forwarded_documents` VALUES (3,10,1,8,NULL,'2026-03-21 20:39:00','2026-03-21 20:39:00'),(4,11,1,9,NULL,'2026-03-21 20:46:41','2026-03-21 20:46:41'),(5,12,1,11,NULL,'2026-03-21 21:08:36','2026-03-21 21:08:36'),(7,11,1,13,NULL,'2026-03-21 21:44:36','2026-03-21 21:44:36'),(9,22,2,14,NULL,'2026-03-26 06:55:15','2026-03-26 06:55:15'),(10,23,18,15,NULL,'2026-03-26 07:41:28','2026-03-26 07:41:28');
+INSERT INTO `forwarded_documents` VALUES (4,11,1,9,NULL,'2026-03-21 20:46:41','2026-03-21 20:46:41'),(5,12,1,11,NULL,'2026-03-21 21:08:36','2026-03-21 21:08:36'),(7,11,1,13,NULL,'2026-03-21 21:44:36','2026-03-21 21:44:36'),(9,22,2,14,NULL,'2026-03-26 06:55:15','2026-03-26 06:55:15'),(10,23,18,15,NULL,'2026-03-26 07:41:28','2026-03-26 07:41:28'),(12,42,1,20,NULL,'2026-04-05 22:12:52','2026-04-05 22:12:52'),(13,43,1,21,NULL,'2026-04-06 08:40:11','2026-04-06 08:40:11'),(14,44,1,23,NULL,'2026-04-06 09:08:48','2026-04-06 09:08:48');
 /*!40000 ALTER TABLE `forwarded_documents` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -365,7 +399,7 @@ CREATE TABLE `helplines` (
   PRIMARY KEY (`helpline_id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `helplines_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `law_categories` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -374,7 +408,7 @@ CREATE TABLE `helplines` (
 
 LOCK TABLES `helplines` WRITE;
 /*!40000 ALTER TABLE `helplines` DISABLE KEYS */;
-INSERT INTO `helplines` VALUES (1,1,'National Cyber Crime Helpline','1930','Report online fraud, identity theft and cyber crimes'),(2,2,'National Consumer Helpline','1915','Consumer complaints and guidance'),(3,3,'Police Emergency','112','Emergency police assistance'),(4,4,'vedant','235033','don\'t call by mistakely'),(5,1,'abc','6554fa','fafa'),(6,7,'Cyber Crime Helpline','1930','Report online fraud and cyber crime'),(7,8,'Police Helpline','100','Emergency police help'),(8,9,'Women Helpline','1091','Women safety and domestic violence help'),(9,10,'Consumer Helpline','1800-11-4000','Consumer complaint helpline'),(10,11,'Property Dispute Helpline','1070','Land and property dispute help'),(11,12,'Women Helpline','1091','Women harassment help'),(12,13,'Labour Helpline','155214','Salary and job complaint'),(13,14,'Banking Helpline','14440','Bank fraud help'),(14,15,'Traffic Helpline','103','Traffic complaint'),(15,16,'Senior Citizen Helpline','14567','Senior citizen help'),(16,17,'Education Helpline','1800-11-8002','Education complaint'),(17,18,'Environment Helpline','1073','Pollution complaint'),(18,19,'RTI Helpline','1800-11-1111','RTI help'),(19,20,'Tax Helpline','1800-180-1961','Income tax help'),(20,21,'Police Helpline','100','Defamation complaint'),(21,22,'IPR Helpline','1800-425-1961','Copyright and trademark help'),(22,23,'vedant','0000','dont call');
+INSERT INTO `helplines` VALUES (1,1,'National Cyber Crime Helpline','1930','Report online fraud, identity theft and cyber crimes'),(2,2,'National Consumer Helpline','1915','Consumer complaints and guidance'),(3,3,'Police Emergency','112','Emergency police assistance'),(4,4,'vedant','235033','don\'t call by mistakely'),(5,1,'abc','6554fa','fafa'),(6,7,'Cyber Crime Helpline','1930','Report online fraud and cyber crime'),(7,8,'Police Helpline','100','Emergency police help'),(8,9,'Women Helpline','1091','Women safety and domestic violence help'),(9,10,'Consumer Helpline','1800-11-4000','Consumer complaint helpline'),(10,11,'Property Dispute Helpline','1070','Land and property dispute help'),(11,12,'Women Helpline','1091','Women harassment help'),(12,13,'Labour Helpline','155214','Salary and job complaint'),(13,14,'Banking Helpline','14440','Bank fraud help'),(14,15,'Traffic Helpline','103','Traffic complaint'),(15,16,'Senior Citizen Helpline','14567','Senior citizen help'),(16,17,'Education Helpline','1800-11-8002','Education complaint'),(17,18,'Environment Helpline','1073','Pollution complaint'),(18,19,'RTI Helpline','1800-11-1111','RTI help'),(19,20,'Tax Helpline','1800-180-1961','Income tax help'),(20,21,'Police Helpline','100','Defamation complaint'),(21,22,'IPR Helpline','1800-425-1961','Copyright and trademark help'),(22,23,'vedant','0000','dont call'),(23,23,'4545','6876867867','yuguyg'),(24,26,'bvn','1232676776',' vdv');
 /*!40000 ALTER TABLE `helplines` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -390,7 +424,7 @@ CREATE TABLE `law_categories` (
   `category_name` varchar(100) NOT NULL,
   `description` text,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -399,7 +433,7 @@ CREATE TABLE `law_categories` (
 
 LOCK TABLES `law_categories` WRITE;
 /*!40000 ALTER TABLE `law_categories` DISABLE KEYS */;
-INSERT INTO `law_categories` VALUES (7,'Cyber Law','Laws related to online fraud, hacking, cyber bullying, data theft.'),(8,'Criminal Law','Laws related to crimes like theft, assault, murder, cheating.'),(9,'Family Law','Laws related to divorce, child custody, domestic violence.'),(10,'Consumer Law','Laws for defective products, online shopping fraud, services complaint.'),(11,'Property Law','Land disputes, property ownership, illegal possession.'),(12,'Women Protection Law','Laws for women safety, harassment, domestic violence.'),(13,'Labour Law','Employee rights, salary issues, workplace harassment.'),(14,'Banking Law','Bank fraud, loan disputes, credit card issues.'),(15,'Traffic Law','Traffic rules, accidents, drunk driving cases.'),(16,'Senior Citizen Law','Laws for protection of senior citizens.'),(17,'Education Law','School/college complaints, ragging, fees issues.'),(18,'Environmental Law','Pollution, environmental protection laws.'),(19,'RTI Law','Right to Information Act related matters.'),(20,'Tax Law','Income tax, GST related issues.'),(21,'Defamation Law','Social media defamation and reputation damage.'),(22,'Intellectual Property Law','Copyright, trademark, patent issues.'),(23,'vedant laws','abc');
+INSERT INTO `law_categories` VALUES (7,'Cyber Law','Laws related to online fraud, hacking, cyber bullying, data theft.'),(8,'Criminal Law','Laws related to crimes like theft, assault, murder, cheating.'),(9,'Family Law','Laws related to divorce, child custody, domestic violence.'),(10,'Consumer Law','Laws for defective products, online shopping fraud, services complaint.'),(11,'Property Law','Land disputes, property ownership, illegal possession.'),(12,'Women Protection Law','Laws for women safety, harassment, domestic violence.'),(13,'Labour Law','Employee rights, salary issues, workplace harassment.'),(14,'Banking Law','Bank fraud, loan disputes, credit card issues.'),(15,'Traffic Law','Traffic rules, accidents, drunk driving cases.'),(16,'Senior Citizen Law','Laws for protection of senior citizens.'),(17,'Education Law','School/college complaints, ragging, fees issues.'),(18,'Environmental Law','Pollution, environmental protection laws.'),(19,'RTI Law','Right to Information Act related matters.'),(20,'Tax Law','Income tax, GST related issues.'),(21,'Defamation Law','Social media defamation and reputation damage.'),(22,'Intellectual Property Law','Copyright, trademark, patent issues.'),(23,'vedant laws','abc'),(24,'vedant','hbjhdjwd'),(25,'jay','hjghfhjwgw'),(26,'xyz','ghfhtf');
 /*!40000 ALTER TABLE `law_categories` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -422,7 +456,7 @@ CREATE TABLE `laws` (
   PRIMARY KEY (`law_id`),
   KEY `category_id` (`category_id`),
   CONSTRAINT `laws_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `law_categories` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=145 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=147 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -431,7 +465,7 @@ CREATE TABLE `laws` (
 
 LOCK TABLES `laws` WRITE;
 /*!40000 ALTER TABLE `laws` DISABLE KEYS */;
-INSERT INTO `laws` VALUES (34,13,'Minimum Wages Act','1948','Minimum Wage','Minimum salary rule.','Low salary.','Fine.'),(35,13,'Payment of Wages Act','1936','Salary Payment','Salary on time.','Salary delay.','Penalty.'),(36,13,'Equal Remuneration Act','1976','Equal Pay','Equal pay for men and women.','Less salary to women.','Penalty.'),(37,13,'Factories Act','1948','Factory Safety','Worker safety.','Unsafe factory.','Fine.'),(38,13,'Industrial Disputes Act','1947','Worker Dispute','Employee dispute.','Wrong termination.','Legal action.'),(39,14,'RBI Act','1934','Bank Regulation','Bank rules.','Bank fraud.','Penalty.'),(40,14,'NI Act','Sec 138','Cheque Bounce','Cheque bounce.','Cheque bounce case.','2 years jail.'),(41,14,'Banking Regulation Act','1949','Bank Control','Bank operations.','Bank issue.','Penalty.'),(42,14,'SARFAESI Act','2002','Loan Recovery','Loan recovery law.','Loan not paid.','Property seizure.'),(43,14,'IT Act','66C','Card Fraud','Debit/Credit fraud.','Card cloning.','3 years jail.'),(49,15,'Motor Vehicle Act','Sec 184','Dangerous Driving','Rash driving.','Overspeed driving.','Fine.'),(50,15,'Motor Vehicle Act','Sec 185','Drunk Driving','Drink and drive.','Alcohol driving.','Fine + jail.'),(51,15,'Motor Vehicle Act','Sec 130','Driving License','Must carry license.','No license.','Fine.'),(52,15,'Motor Vehicle Act','Sec 129','Helmet Rule','Helmet required.','No helmet.','Fine.'),(53,15,'Motor Vehicle Act','Sec 194','No Insurance','Vehicle insurance required.','No insurance.','Fine.'),(54,16,'Senior Citizens Act 2007','Sec 4','Maintenance of Parents','Children must take care of parents.','Children not giving money.','Monthly maintenance ordered by court.'),(55,16,'Senior Citizens Act 2007','Sec 5','Maintenance Tribunal','Senior citizens can file complaint.','Parents abandoned.','Legal action.'),(56,11,'IPC','Sec 406','Property Misuse','Children taking property illegally.','Son takes house.','Legal punishment.'),(57,11,'Senior Citizens Act 2007','Sec 23','Property Transfer Fraud','If children take property and not care.','Property fraud.','Transfer cancelled.'),(58,9,'CrPC','Sec 125','Maintenance','Parents can claim maintenance.','No money support.','Court order.'),(59,18,'Environment Protection Act','1986','Pollution Control','Protect environment.','Factory pollution.','Fine/jail.'),(60,18,'Air Pollution Act','1981','Air Pollution','Control air pollution.','Smoke factory.','Fine.'),(61,18,'Water Pollution Act','1974','Water Pollution','Stop water pollution.','Dirty water release.','Fine.'),(62,18,'Wildlife Protection Act','1972','Animal Protection','Protect wildlife.','Hunting animals.','Jail.'),(63,18,'Forest Act','1927','Forest Protection','Protect forest.','Cutting trees.','Fine/jail.'),(64,7,'IT Act 2000','Sec 43','Data Theft','Stealing someone data without permission','Hacking email account','Fine up to 5 lakh'),(65,7,'IT Act 2000','Sec 66','Computer Hacking','Unauthorized system access','Hack bank server','3 years jail'),(66,7,'IT Act 2000','Sec 66C','Identity Theft','Using someone OTP/password','OTP fraud','3 years jail'),(67,7,'IT Act 2000','Sec 66D','Online Fraud','Online cheating','UPI scam','3 years jail'),(68,7,'IT Act 2000','Sec 67','Obscene Content','Posting illegal content online','Posting obscene video','5 years jail'),(69,8,'IPC','Sec 378','Theft','Taking property without permission','Mobile theft','Jail or fine'),(70,8,'IPC','Sec 420','Cheating','Fraud and cheating','Online fraud','7 years jail'),(71,8,'IPC','Sec 351','Assault','Attacking someone','Physical attack','Jail'),(72,21,'IPC','Sec 499','Defamation','Harming reputation','False post','Fine'),(73,8,'IPC','Sec 506','Criminal Intimidation','Threatening someone','Threat call','Jail'),(74,9,'Hindu Marriage Act','Sec 13','Divorce','Legal separation','Husband wife divorce','Court decision'),(75,12,'DV Act','2005','Domestic Violence','Abuse at home','Husband beating wife','Jail'),(76,9,'Hindu Adoption Act','1956','Adoption Law','Legal adoption','Adopt child','Legal process'),(78,9,'Child Marriage Act','2006','Child Marriage','Marriage under 18 illegal','Minor marriage','Jail'),(79,10,'Consumer Protection Act','2019','Consumer Rights','Defective product complaint','Broken mobile','Refund'),(80,10,'Consumer Protection Act','2019','Service Deficiency','Bad service','Bad internet service','Compensation'),(81,10,'Legal Metrology Act','2009','Wrong Weight','Wrong product weight','Petrol pump fraud','Fine'),(82,10,'Food Safety Act','2006','Food Safety','Bad food quality','Expired food','Fine'),(83,10,'E-Commerce Rules','2020','Online Shopping Fraud','Fake product online','Fake Amazon product','Refund'),(84,11,'Transfer of Property Act','1882','Property Transfer','Legal property transfer','Land sale','Legal document'),(85,11,'Registration Act','1908','Property Registration','Property registration required','Unregistered land','Illegal'),(86,11,'Land Revenue Act','1966','Land Dispute','Land ownership dispute','Farm land dispute','Court decision'),(87,11,'Rent Control Act','1948','Tenant Rights','Tenant protection','Owner force eviction','Illegal'),(88,11,'Property Law','Illegal Possession','Land कब्जा',' कब्जा on land','Police complaint','Jail'),(89,12,'IPC','Sec 354','Molestation','Touching without consent','Molestation case','Jail'),(90,12,'IPC','Sec 376','Rape','Forced sexual act','Rape case','Jail 7+ years'),(92,12,'Dowry Act','1961','Dowry','Dowry demand','Dowry case','Jail'),(93,12,'POSH Act','2013','Workplace Harassment','Office harassment','Office harassment case','Penalty'),(94,13,'Minimum Wages Act','1948','Minimum Salary','Minimum wage law','Low salary','Penalty'),(95,13,'Payment of Wages Act','1936','Salary Delay','Late salary','Company delay salary','Penalty'),(96,13,'EPF Act','1952','PF Rights','PF money rights','Company not giving PF','Legal action'),(97,13,'ESI Act','1948','Medical Benefits','Employee medical','Company deny ESI','Penalty'),(99,14,'Banking Regulation Act','1949','Bank Rules','Bank regulations','Bank fraud','Penalty'),(100,14,'RBI Act','1934','RBI Rules','RBI regulations','Bank violation','Penalty'),(102,14,'IT Act','Sec 66','Online Banking Fraud','Net banking fraud','OTP fraud','Jail'),(103,14,'Loan Law','Sec 138','Loan Default','Loan not paid','Loan case','Legal action'),(104,15,'Motor Vehicle Act','1988','No License','Driving without license','No license','Fine'),(105,15,'Motor Vehicle Act','Sec 129','No Helmet','Riding without helmet','No helmet','Fine'),(107,15,'Motor Vehicle Act','Sec 183','Over Speed','Over speed driving','Speeding','Fine'),(109,16,'Senior Citizen Act','2007','Parent Maintenance','Children must care parents','Son not caring','Legal action'),(110,16,'Senior Citizen Act','Sec 23','Property Protection','Illegal property grab','Property कब्जा','Jail'),(111,16,'Senior Citizen Act','Sec 24','Abuse Protection','Abuse against senior','Harassment','Jail'),(112,16,'Pension Act','1871','Pension Rights','Pension issues','Pension stopped','Legal action'),(113,16,'Medical Law','Sec 15','Senior Medical Rights','Hospital deny treatment','Treatment denied','Action'),(114,17,'Right to Education Act','2009','Free Education','Free education 6-14','School deny admission','Action'),(115,17,'UGC Act','1956','University Rules','University regulations','Fake university','Penalty'),(116,17,'Anti Ragging Act','2009','Ragging Crime','Ragging illegal','College ragging','Suspension'),(117,17,'Education Act','Sec 5','Capitation Fee','Illegal donation fee','College donation','Penalty'),(118,17,'IT Act','Sec 66','Online Harassment','Online bullying','Student cyber bullying','Legal action'),(124,19,'RTI Act','2005','Right to Information','Ask govt info','RTI application','Info provided'),(125,19,'RTI Act','Sec 6','Apply RTI','RTI apply process','Apply RTI','Response'),(126,19,'RTI Act','Sec 7','RTI Reply','Reply in 30 days','No reply','Penalty'),(127,19,'RTI Act','Sec 19','RTI Appeal','Appeal if no reply','RTI appeal','Action'),(128,19,'RTI Act','Sec 20','Penalty on Officer','Late reply','Fine on officer','Fine'),(129,20,'Income Tax Act','1961','Income Tax','Tax on income','Not paying tax','Penalty'),(130,20,'GST Act','2017','GST Tax','GST rules','GST fraud','Penalty'),(131,20,'Income Tax Act','Sec 80C','Tax Saving','Tax deduction','LIC investment','Tax benefit'),(132,20,'GST Act','Sec 22','GST Registration','GST registration required','No GST','Penalty'),(133,20,'Tax Law','Sec 276','Tax Evasion','Hiding income','Black money','Penalty'),(135,21,'IPC','Sec 500','Defamation Punishment','Punishment for defamation','Social media post','Jail/Fine'),(136,21,'IT Act','Sec 66A','Online Defamation','Online insult','Facebook post','Legal action'),(137,21,'Civil Law','Sec 19','Defamation Suit','File case','Reputation damage','Compensation'),(138,21,'Media Law','Sec 3','False News','Fake news spread','False news','Penalty'),(139,22,'Copyright Act','1957','Copyright Protection','Protect content','Copy book','Penalty'),(140,22,'Trademark Act','1999','Trademark Protection','Protect brand','Fake brand','Penalty'),(141,22,'Patent Act','1970','Patent Protection','Protect invention','Copy invention','Penalty'),(142,22,'IT Act','Sec 65','Software Piracy','Illegal software copy','Pirated software','Fine'),(143,22,'Design Act','2000','Design Protection','Protect design','Copy design','Penalty'),(144,23,'vedant act,259','33B','not working','if not following orders','abc','fine and jail');
+INSERT INTO `laws` VALUES (34,13,'Minimum Wages Act','1948','Minimum Wage','Minimum salary rule.','Low salary.','Fine.'),(35,13,'Payment of Wages Act','1936','Salary Payment','Salary on time.','Salary delay.','Penalty.'),(36,13,'Equal Remuneration Act','1976','Equal Pay','Equal pay for men and women.','Less salary to women.','Penalty.'),(37,13,'Factories Act','1948','Factory Safety','Worker safety.','Unsafe factory.','Fine.'),(38,13,'Industrial Disputes Act','1947','Worker Dispute','Employee dispute.','Wrong termination.','Legal action.'),(39,14,'RBI Act','1934','Bank Regulation','Bank rules.','Bank fraud.','Penalty.'),(40,14,'NI Act','Sec 138','Cheque Bounce','Cheque bounce.','Cheque bounce case.','2 years jail.'),(41,14,'Banking Regulation Act','1949','Bank Control','Bank operations.','Bank issue.','Penalty.'),(42,14,'SARFAESI Act','2002','Loan Recovery','Loan recovery law.','Loan not paid.','Property seizure.'),(43,14,'IT Act','66C','Card Fraud','Debit/Credit fraud.','Card cloning.','3 years jail.'),(49,15,'Motor Vehicle Act','Sec 184','Dangerous Driving','Rash driving.','Overspeed driving.','Fine.'),(50,15,'Motor Vehicle Act','Sec 185','Drunk Driving','Drink and drive.','Alcohol driving.','Fine + jail.'),(51,15,'Motor Vehicle Act','Sec 130','Driving License','Must carry license.','No license.','Fine.'),(52,15,'Motor Vehicle Act','Sec 129','Helmet Rule','Helmet required.','No helmet.','Fine.'),(53,15,'Motor Vehicle Act','Sec 194','No Insurance','Vehicle insurance required.','No insurance.','Fine.'),(54,16,'Senior Citizens Act 2007','Sec 4','Maintenance of Parents','Children must take care of parents.','Children not giving money.','Monthly maintenance ordered by court.'),(55,16,'Senior Citizens Act 2007','Sec 5','Maintenance Tribunal','Senior citizens can file complaint.','Parents abandoned.','Legal action.'),(56,11,'IPC','Sec 406','Property Misuse','Children taking property illegally.','Son takes house.','Legal punishment.'),(57,11,'Senior Citizens Act 2007','Sec 23','Property Transfer Fraud','If children take property and not care.','Property fraud.','Transfer cancelled.'),(58,9,'CrPC','Sec 125','Maintenance','Parents can claim maintenance.','No money support.','Court order.'),(59,18,'Environment Protection Act','1986','Pollution Control','Protect environment.','Factory pollution.','Fine/jail.'),(60,18,'Air Pollution Act','1981','Air Pollution','Control air pollution.','Smoke factory.','Fine.'),(61,18,'Water Pollution Act','1974','Water Pollution','Stop water pollution.','Dirty water release.','Fine.'),(62,18,'Wildlife Protection Act','1972','Animal Protection','Protect wildlife.','Hunting animals.','Jail.'),(63,18,'Forest Act','1927','Forest Protection','Protect forest.','Cutting trees.','Fine/jail.'),(64,7,'IT Act 2000','Sec 43','Data Theft','Stealing someone data without permission','Hacking email account','Fine up to 5 lakh'),(65,7,'IT Act 2000','Sec 66','Computer Hacking','Unauthorized system access','Hack bank server','3 years jail'),(66,7,'IT Act 2000','Sec 66C','Identity Theft','Using someone OTP/password','OTP fraud','3 years jail'),(67,7,'IT Act 2000','Sec 66D','Online Fraud','Online cheating','UPI scam','3 years jail'),(68,7,'IT Act 2000','Sec 67','Obscene Content','Posting illegal content online','Posting obscene video','5 years jail'),(69,8,'IPC','Sec 378','Theft','Taking property without permission','Mobile theft','Jail or fine'),(70,8,'IPC','Sec 420','Cheating','Fraud and cheating','Online fraud','7 years jail'),(71,8,'IPC','Sec 351','Assault','Attacking someone','Physical attack','Jail'),(72,21,'IPC','Sec 499','Defamation','Harming reputation','False post','Fine'),(73,8,'IPC','Sec 506','Criminal Intimidation','Threatening someone','Threat call','Jail'),(74,9,'Hindu Marriage Act','Sec 13','Divorce','Legal separation','Husband wife divorce','Court decision'),(75,12,'DV Act','2005','Domestic Violence','Abuse at home','Husband beating wife','Jail'),(76,9,'Hindu Adoption Act','1956','Adoption Law','Legal adoption','Adopt child','Legal process'),(78,9,'Child Marriage Act','2006','Child Marriage','Marriage under 18 illegal','Minor marriage','Jail'),(79,10,'Consumer Protection Act','2019','Consumer Rights','Defective product complaint','Broken mobile','Refund'),(80,10,'Consumer Protection Act','2019','Service Deficiency','Bad service','Bad internet service','Compensation'),(81,10,'Legal Metrology Act','2009','Wrong Weight','Wrong product weight','Petrol pump fraud','Fine'),(82,10,'Food Safety Act','2006','Food Safety','Bad food quality','Expired food','Fine'),(83,10,'E-Commerce Rules','2020','Online Shopping Fraud','Fake product online','Fake Amazon product','Refund'),(84,11,'Transfer of Property Act','1882','Property Transfer','Legal property transfer','Land sale','Legal document'),(85,11,'Registration Act','1908','Property Registration','Property registration required','Unregistered land','Illegal'),(86,11,'Land Revenue Act','1966','Land Dispute','Land ownership dispute','Farm land dispute','Court decision'),(87,11,'Rent Control Act','1948','Tenant Rights','Tenant protection','Owner force eviction','Illegal'),(88,11,'Property Law','Illegal Possession','Land कब्जा',' कब्जा on land','Police complaint','Jail'),(89,12,'IPC','Sec 354','Molestation','Touching without consent','Molestation case','Jail'),(90,12,'IPC','Sec 376','Rape','Forced sexual act','Rape case','Jail 7+ years'),(92,12,'Dowry Act','1961','Dowry','Dowry demand','Dowry case','Jail'),(93,12,'POSH Act','2013','Workplace Harassment','Office harassment','Office harassment case','Penalty'),(94,13,'Minimum Wages Act','1948','Minimum Salary','Minimum wage law','Low salary','Penalty'),(95,13,'Payment of Wages Act','1936','Salary Delay','Late salary','Company delay salary','Penalty'),(96,13,'EPF Act','1952','PF Rights','PF money rights','Company not giving PF','Legal action'),(97,13,'ESI Act','1948','Medical Benefits','Employee medical','Company deny ESI','Penalty'),(99,14,'Banking Regulation Act','1949','Bank Rules','Bank regulations','Bank fraud','Penalty'),(100,14,'RBI Act','1934','RBI Rules','RBI regulations','Bank violation','Penalty'),(102,14,'IT Act','Sec 66','Online Banking Fraud','Net banking fraud','OTP fraud','Jail'),(103,14,'Loan Law','Sec 138','Loan Default','Loan not paid','Loan case','Legal action'),(104,15,'Motor Vehicle Act','1988','No License','Driving without license','No license','Fine'),(105,15,'Motor Vehicle Act','Sec 129','No Helmet','Riding without helmet','No helmet','Fine'),(107,15,'Motor Vehicle Act','Sec 183','Over Speed','Over speed driving','Speeding','Fine'),(109,16,'Senior Citizen Act','2007','Parent Maintenance','Children must care parents','Son not caring','Legal action'),(110,16,'Senior Citizen Act','Sec 23','Property Protection','Illegal property grab','Property कब्जा','Jail'),(111,16,'Senior Citizen Act','Sec 24','Abuse Protection','Abuse against senior','Harassment','Jail'),(112,16,'Pension Act','1871','Pension Rights','Pension issues','Pension stopped','Legal action'),(113,16,'Medical Law','Sec 15','Senior Medical Rights','Hospital deny treatment','Treatment denied','Action'),(114,17,'Right to Education Act','2009','Free Education','Free education 6-14','School deny admission','Action'),(115,17,'UGC Act','1956','University Rules','University regulations','Fake university','Penalty'),(116,17,'Anti Ragging Act','2009','Ragging Crime','Ragging illegal','College ragging','Suspension'),(117,17,'Education Act','Sec 5','Capitation Fee','Illegal donation fee','College donation','Penalty'),(118,17,'IT Act','Sec 66','Online Harassment','Online bullying','Student cyber bullying','Legal action'),(124,19,'RTI Act','2005','Right to Information','Ask govt info','RTI application','Info provided'),(125,19,'RTI Act','Sec 6','Apply RTI','RTI apply process','Apply RTI','Response'),(126,19,'RTI Act','Sec 7','RTI Reply','Reply in 30 days','No reply','Penalty'),(127,19,'RTI Act','Sec 19','RTI Appeal','Appeal if no reply','RTI appeal','Action'),(128,19,'RTI Act','Sec 20','Penalty on Officer','Late reply','Fine on officer','Fine'),(129,20,'Income Tax Act','1961','Income Tax','Tax on income','Not paying tax','Penalty'),(130,20,'GST Act','2017','GST Tax','GST rules','GST fraud','Penalty'),(131,20,'Income Tax Act','Sec 80C','Tax Saving','Tax deduction','LIC investment','Tax benefit'),(132,20,'GST Act','Sec 22','GST Registration','GST registration required','No GST','Penalty'),(133,20,'Tax Law','Sec 276','Tax Evasion','Hiding income','Black money','Penalty'),(135,21,'IPC','Sec 500','Defamation Punishment','Punishment for defamation','Social media post','Jail/Fine'),(136,21,'IT Act','Sec 66A','Online Defamation','Online insult','Facebook post','Legal action'),(137,21,'Civil Law','Sec 19','Defamation Suit','File case','Reputation damage','Compensation'),(138,21,'Media Law','Sec 3','False News','Fake news spread','False news','Penalty'),(139,22,'Copyright Act','1957','Copyright Protection','Protect content','Copy book','Penalty'),(140,22,'Trademark Act','1999','Trademark Protection','Protect brand','Fake brand','Penalty'),(141,22,'Patent Act','1970','Patent Protection','Protect invention','Copy invention','Penalty'),(142,22,'IT Act','Sec 65','Software Piracy','Illegal software copy','Pirated software','Fine'),(143,22,'Design Act','2000','Design Protection','Protect design','Copy design','Penalty'),(144,23,'vedant act,259','33B','not working','if not following orders','abc','fine and jail'),(145,23,'abc','ip 2','sdvsfw','edqew','feww','wefwef'),(146,26,'sdvsf','465','gf','ghfh','gtdtdhb','jail');
 /*!40000 ALTER TABLE `laws` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -454,7 +488,7 @@ CREATE TABLE `lawyers` (
   `consultation_fee` int DEFAULT '500',
   `profile_image` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`lawyer_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -463,7 +497,7 @@ CREATE TABLE `lawyers` (
 
 LOCK TABLES `lawyers` WRITE;
 /*!40000 ALTER TABLE `lawyers` DISABLE KEYS */;
-INSERT INTO `lawyers` VALUES (1,'Adv. Rahul Sharma','Mumbai','Cyber Law',8,'9876543210','rahul@email.com','Specialist in cyber crime and digital fraud cases.',1000,NULL),(3,'Adv. Arjun Singh','Delhi','Criminal Law',12,'9988776655','arjun@email.com','Expert in IPC criminal cases and defence.',500,NULL),(14,'Adv. Rahul Sharma','Pune','Criminal Law',8,'9876543210','rahul@gmail.com','Expert in criminal and cyber crime cases.',1000,NULL),(15,'Adv. Priya Mehta','Mumbai','Family Law',6,'9876543211','priya@gmail.com','Handles divorce, domestic violence and family disputes.',1200,NULL),(16,'Adv. Anil Deshmukh','Nanded','Cyber Law',5,'9876543212','anil@gmail.com','Specialist in cyber fraud and online scam cases.',900,NULL),(17,'Adv. Snehal Patil','Pune','Property Law',10,'9876543213','snehal@gmail.com','Property disputes and land related cases.',1500,NULL),(18,'Adv. Kiran Joshi','Mumbai','Consumer Law',7,'9876543214','kiran@gmail.com','Consumer court and product complaint cases.',800,NULL);
+INSERT INTO `lawyers` VALUES (1,'Adv. Jay Mapari','Pune','Cyber Lawyer',8,'8788663250','rahul@email.com','Specialist in cyber crime and digital fraud cases.',567,'lawyer_1_20260415203812093847.jpg'),(14,'Adv. Rahul Sharma','Pune','Criminal Law',8,'9876543210','rahul@gmail.com','Expert in criminal and cyber crime cases.',1000,NULL),(15,'Adv. Priya Mehta','Mumbai','Family Law',6,'9876543211','priya@gmail.com','Handles divorce, domestic violence and family disputes.',1200,NULL),(16,'Adv. Anil Deshmukh','Nanded','Cyber Law',5,'9876543212','anil@gmail.com','Specialist in cyber fraud and online scam cases.',900,NULL),(17,'Adv. Snehal Patil','Pune','Property Law',10,'9876543213','snehal@gmail.com','Property disputes and land related cases.',1000,NULL),(22,'Jay Mapari','Not Added Yet','General Practice',0,'0000000000','j@gmail.com','Profile created by admin promotion. Please update lawyer details from admin panel.',0,NULL),(23,'b','Not Added Yet','General Practice',0,'0000000000','b@gmail.com','Profile created by admin promotion. Please update lawyer details from admin panel.',0,NULL),(25,'Adv. Jay Mapari','Pune','Fraud Law',5,'8797659834','ja@gmail.com','sjfnosiejfiosef',1000,NULL);
 /*!40000 ALTER TABLE `lawyers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -493,6 +527,38 @@ LOCK TABLES `qa_module` WRITE;
 /*!40000 ALTER TABLE `qa_module` DISABLE KEYS */;
 INSERT INTO `qa_module` VALUES (1,1,'What should I do if someone commits online fraud against me?','You should immediately report the fraud on the National Cyber Crime Reporting Portal and call helpline 1930. Collect all evidence like screenshots and transaction details.'),(2,2,'How can I file a consumer complaint?','You can file a complaint through the Consumer Commission or use the National Consumer Helpline 1915. Keep purchase bills and product details ready.'),(3,3,'What should I do in case of theft?','You should file an FIR at the nearest police station and provide details of the stolen property.'),(4,7,'What should I do if my social media account is hacked?','Immediately change your password and report the incident on cybercrime.gov.in.'),(5,7,'Is online fraud punishable?','Yes, online fraud is punishable under IT Act.'),(6,7,'Where can I report cyber crime?','You can report cyber crime on the National Cyber Crime Portal.'),(7,7,'What is cyber bullying?','Cyber bullying is harassment using online platforms.'),(8,7,'Is hacking illegal in India?','Yes, hacking is illegal under IT Act.'),(9,8,'What is FIR?','FIR is First Information Report filed in police station.'),(10,8,'What should I do if someone assaults me?','File FIR and get medical report.'),(11,8,'What is cheating case?','Cheating is punishable under IPC Section 420.'),(12,8,'Can police arrest without warrant?','Yes, in cognizable offences police can arrest without warrant.'),(13,8,'What is criminal intimidation?','Threatening someone is criminal intimidation.'),(14,9,'How to file divorce?','You need to file divorce petition in family court.'),(15,9,'Who gets child custody after divorce?','Court decides based on child welfare.'),(16,9,'What is maintenance?','Maintenance is financial support given to spouse or parents.'),(17,9,'What is domestic violence?','Violence by spouse or family member is domestic violence.'),(18,9,'Is court marriage legal?','Yes, court marriage is legal.'),(19,10,'What to do if I receive defective product?','You can file complaint in consumer court.'),(20,10,'Can I get refund for online fraud?','Yes, you can file consumer complaint.'),(21,10,'What is consumer court?','Consumer court handles consumer complaints.'),(22,10,'Is bill necessary for complaint?','Yes, bill is important proof.'),(23,10,'How to file consumer complaint?','You can file complaint online.'),(24,11,'What to do in land dispute?','File civil case in court.'),(25,11,'What is property registration?','It is legal ownership registration.'),(26,11,'Can someone कब्जा my land?','Illegal possession is punishable.'),(27,11,'What is property fraud?','Selling property illegally is fraud.'),(28,11,'Do I need lawyer for property case?','Yes, property lawyer is required.'),(29,12,'What is women helpline number?','Women helpline number is 1091.'),(30,12,'What to do in molestation case?','File FIR immediately.'),(31,12,'What is domestic violence law?','It protects women from abuse.'),(32,12,'Is dowry illegal?','Yes, dowry is illegal.'),(33,12,'What is workplace harassment?','Harassment at workplace is punishable.'),(34,13,'What if salary not paid?','File complaint in labour office.'),(35,13,'What is PF?','PF is provident fund for employees.'),(36,13,'What is ESI?','ESI is employee medical benefit.'),(37,13,'Can company delay salary?','No, salary delay is illegal.'),(38,13,'Where to complain against company?','Labour court.'),(39,14,'What is cheque bounce?','Cheque bounce is punishable offence.'),(40,14,'What to do in ATM fraud?','Block card and inform bank.'),(41,14,'What is RBI Ombudsman?','It handles bank complaints.'),(42,14,'Can bank harass for loan?','No, harassment is illegal.'),(43,14,'What is loan default?','Not paying loan is default.'),(44,15,'Is helmet compulsory?','Yes, helmet is compulsory.'),(45,15,'Penalty for drunk driving?','Fine and jail possible.'),(46,15,'Driving without license?','Illegal and punishable.'),(47,15,'How to pay challan?','You can pay online.'),(48,15,'Is insurance compulsory?','Yes, vehicle insurance compulsory.'),(49,16,'What if children not taking care?','File maintenance case.'),(50,16,'Senior citizen property rights?','Law protects senior property.'),(51,16,'What is maintenance tribunal?','It handles senior citizen cases.'),(52,16,'Is senior abuse crime?','Yes, it is crime.'),(53,16,'What is pension right?','Senior citizens have pension rights.'),(54,17,'What is ragging law?','Ragging is punishable offence.'),(55,17,'College not giving certificate?','File complaint to university.'),(56,17,'Fake university complaint?','Report to UGC.'),(57,17,'School fees issue?','Complain to education board.'),(58,17,'Is ragging illegal?','Yes.'),(59,18,'Where to complain about pollution?','Pollution Control Board.'),(60,18,'Is tree cutting illegal?','Yes without permission.'),(61,18,'Noise pollution complaint?','File police complaint.'),(62,18,'Water pollution complaint?','Municipal authority.'),(63,18,'Air pollution complaint?','Pollution board.'),(64,19,'What is RTI?','Right to Information law.'),(65,19,'How to file RTI?','Submit RTI application.'),(66,19,'RTI reply time?','30 days.'),(67,19,'What if no RTI reply?','File RTI appeal.'),(68,19,'RTI penalty?','Officer can be fined.'),(69,20,'What is GST?','Goods and Services Tax.'),(70,20,'Income tax notice?','Reply with CA help.'),(71,20,'Tax penalty?','Penalty for tax violation.'),(72,20,'Tax saving?','Use legal deductions.'),(73,20,'GST registration?','Required for business.'),(74,21,'What is defamation?','Damage to reputation.'),(75,21,'Social media defamation?','Punishable offence.'),(76,21,'Defamation punishment?','Fine or jail.'),(77,21,'False news case?','File defamation case.'),(78,21,'Can I claim compensation?','Yes.'),(79,22,'What is copyright?','Protects original work.'),(80,22,'What is trademark?','Protects brand name.'),(81,22,'What is patent?','Protects invention.'),(82,22,'Is piracy illegal?','Yes.'),(83,22,'Design copy law?','Protected by Design Act.');
 /*!40000 ALTER TABLE `qa_module` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ratings`
+--
+
+DROP TABLE IF EXISTS `ratings`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ratings` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `lawyer_id` int NOT NULL,
+  `rating` tinyint NOT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uq_ratings_user_lawyer` (`user_id`,`lawyer_id`),
+  KEY `idx_ratings_lawyer` (`lawyer_id`),
+  CONSTRAINT `fk_ratings_lawyer` FOREIGN KEY (`lawyer_id`) REFERENCES `lawyers` (`lawyer_id`) ON DELETE CASCADE,
+  CONSTRAINT `fk_ratings_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `ratings`
+--
+
+LOCK TABLES `ratings` WRITE;
+/*!40000 ALTER TABLE `ratings` DISABLE KEYS */;
+INSERT INTO `ratings` VALUES (1,7,1,3,'2026-04-11 21:00:31','2026-04-11 21:00:39'),(3,37,1,5,'2026-04-11 21:01:15','2026-04-11 21:01:39'),(5,37,16,1,'2026-04-11 21:01:47','2026-04-11 21:02:04'),(9,37,14,5,'2026-04-11 21:05:05','2026-04-11 21:05:05'),(10,37,15,3,'2026-04-11 21:05:16','2026-04-11 21:05:16'),(11,11,1,3,'2026-04-11 21:06:13','2026-04-11 21:06:13'),(12,11,14,5,'2026-04-11 21:58:52','2026-04-11 21:58:52');
+/*!40000 ALTER TABLE `ratings` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -563,9 +629,10 @@ CREATE TABLE `users` (
   `password` varchar(255) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `role` varchar(20) DEFAULT 'user',
+  `phone` varchar(15) DEFAULT NULL,
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=62 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -574,9 +641,13 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'Vedant','vedantgjawadwar26@gmail.com','$2b$12$SIha5m8/cLj5cThVhhyPFuWslCbWNktIJgpnuODnjOKReN.ZxU85.','2026-03-02 10:35:26','admin'),(7,'user-a','a@g.com','$2b$12$aeigC16N3uSNR2P75Lmnsu4dtAPD4xtYLDYayYd7eIPsCYNnBnf96','2026-03-02 11:09:21','user'),(10,'admin','admin@gmail.com','$2b$12$usiprrCOWs04lPQD.gpvFOvaZfEndJfy4c4Q8hUx4gZgWhzX2/XrK','2026-03-07 20:08:28','admin'),(11,'rahul','rahul@email.com','$2b$12$m3p/B3ZQt14j/hymqI6Kn.a2LsXLlBfq6y/K02qLJWDlBEo2I65/K','2026-03-08 14:26:52','lawyer'),(20,'Vedant','ved12816@gmail.com','$2b$12$cGQuYw5iKGoYmw3iJJYIXOHaoue2Aav87k6RNEPvqcXcStrPbRT.y','2026-03-23 14:14:05','user'),(28,'Rahul Sharma','rahul@gmail.com','$2b$12$J8h1tFqF9nZ8HjG7QXQ7UeK7rH2rQeZyJ0J9Z8mQeK9jH1X8Y7Z6G','2026-03-25 16:16:12','lawyer'),(29,'Anil Deshmukh','anil@gmail.com','$2b$12$J8h1tFqF9nZ8HjG7QXQ7UeK7rH2rQeZyJ0J9Z8mQeK9jH1X8Y7Z6G','2026-03-25 16:16:12','lawyer'),(30,'Amit Patil','amit@gmail.com','123','2026-03-25 16:16:12','user'),(31,'Sneha Joshi','sneha@gmail.com','123','2026-03-25 16:16:12','user'),(32,'Rohit Kulkarni','rohit@gmail.com','123','2026-03-25 16:16:12','user'),(33,'Pooja Shah','pooja@gmail.com','123','2026-03-25 16:16:12','user'),(34,'kiran','kiran@gmail.com','$2b$12$HORV2eAlHGHLEecXXegkXeGhwUsa7goFmg9AvlNc.EnQrWHJxtwBG','2026-03-26 07:10:20','lawyer'),(35,'c','c@gmail.com','$2b$12$CHzbmKwwOfNvpmdas394merdM9TVdyqEy9IAXPPph.AVJ7z2mjnT2','2026-03-26 07:16:58','user'),(36,'Priya Mehta','priya@gmail.com','$2b$12$AzObGeYs5ych2J9TCaz6uOxos9ny1h/KxyQlBHhAclhsg5O1jJIIy','2026-03-26 07:36:44','lawyer');
+INSERT INTO `users` VALUES (1,'Vedant','vedantgjawadwar26@gmail.com','$2b$12$SIha5m8/cLj5cThVhhyPFuWslCbWNktIJgpnuODnjOKReN.ZxU85.','2026-03-02 10:35:26','admin','9881821679'),(7,'user-a','a@g.com','$2b$12$aeigC16N3uSNR2P75Lmnsu4dtAPD4xtYLDYayYd7eIPsCYNnBnf96','2026-03-02 11:09:21','user',NULL),(10,'admin','admin@gmail.com','$2b$12$usiprrCOWs04lPQD.gpvFOvaZfEndJfy4c4Q8hUx4gZgWhzX2/XrK','2026-03-07 20:08:28','admin',NULL),(11,'Adv. Jay Mapari','rahul@email.com','$2b$12$m3p/B3ZQt14j/hymqI6Kn.a2LsXLlBfq6y/K02qLJWDlBEo2I65/K','2026-03-08 14:26:52','lawyer',NULL),(20,'Vedant','ved12816@gmail.com','$2b$12$cGQuYw5iKGoYmw3iJJYIXOHaoue2Aav87k6RNEPvqcXcStrPbRT.y','2026-03-23 14:14:05','user',NULL),(28,'Rahul Sharma','rahul@gmail.com','$2b$12$J8h1tFqF9nZ8HjG7QXQ7UeK7rH2rQeZyJ0J9Z8mQeK9jH1X8Y7Z6G','2026-03-25 16:16:12','lawyer',NULL),(29,'Anil Deshmukh','anil@gmail.com','$2b$12$J8h1tFqF9nZ8HjG7QXQ7UeK7rH2rQeZyJ0J9Z8mQeK9jH1X8Y7Z6G','2026-03-25 16:16:12','lawyer',NULL),(30,'Amit Patil','amit@gmail.com','123','2026-03-25 16:16:12','user',NULL),(31,'Sneha Joshi','sneha@gmail.com','123','2026-03-25 16:16:12','user',NULL),(32,'Rohit Kulkarni','rohit@gmail.com','123','2026-03-25 16:16:12','user',NULL),(33,'Pooja Shah','pooja@gmail.com','123','2026-03-25 16:16:12','user',NULL),(35,'c','c@gmail.com','$2b$12$CHzbmKwwOfNvpmdas394merdM9TVdyqEy9IAXPPph.AVJ7z2mjnT2','2026-03-26 07:16:58','user',NULL),(36,'Priya Mehta','priya@gmail.com','$2b$12$AzObGeYs5ych2J9TCaz6uOxos9ny1h/KxyQlBHhAclhsg5O1jJIIy','2026-03-26 07:36:44','lawyer',NULL),(37,'jay','jay@gmail.com','$2b$12$yYEWxu3pj0s3TY6UZbBe4eKIgSIPhO/FPLOyFxapRmghcP6ZvpAEa','2026-03-27 20:20:15','admin',NULL),(39,'Jay Mapari','j@gmail.com','$2b$12$w5op561piQInKb64d6XLeeiuFzh4UxoZswQsLcZaRVhOHULVc84p.','2026-03-27 22:15:49','lawyer',NULL),(40,'ab','ab@gmail.com','$2b$12$9/FZgAJYhSkBOnmugaVVAuB2dx/3SUnj2UQkfOFOVt1mO.N95dWZ6','2026-03-31 19:27:49','lawyer',NULL),(41,'ggg','ggg@gmail.com','$2b$12$DC0HtsGDbViw04bRW.oA2.7weUhpd4o8zGd2oQdAlFrChn/IMUFYi','2026-03-31 20:04:46','user',NULL),(42,'b','b@gmail.com','$2b$12$ypTIfvwPJXOcJnOpNl9Oc.Ly1/uGVV2H9djncGJCAmas4S9q81x.O','2026-04-02 08:39:10','lawyer',NULL),(43,'a','a@gmail.com','$2b$12$TMB7fXPoQ1GQgkaaa9xsEuG4NzwG.L5jIo.Z37KUFXhiXOHPiqSNi','2026-04-06 08:54:57','user',NULL),(44,'demo','demo@gmail.com','$2b$12$eXu3Lp2LSyCksyeChrGOfuLc0uozByoGk9DH2Hv9gM4PZlEvWXNHW','2026-04-10 21:32:54','user',NULL),(46,'sanket','mp3553148@gmail.com','$2b$12$k2w4dZ5TnC2bFo7Y/XImXuZxHFQR.Eat76nL51DDlbgcO4CAPxj3i','2026-04-11 10:30:22','user','9503407940'),(48,'abcd','abcd@gmail.com','$2b$12$ZLL8z5EiaEAoQJnVIhv66egiZqbYdP/pncExB/WDfBlEFmm/wS21S','2026-04-11 10:32:35','user','1232134321'),(49,'kjksdnfkwd','gwefew@gmail.com','$2b$12$mIwX/BICVW7fjnZ44zaJjOhL5sipreHk2wmOoYpRG6ZLDjSXuVNUC','2026-04-11 10:32:52','user','1232134321'),(51,'bjh','bhjbj@gmail.com','$2b$12$H2UEheI9gb2BZdkzagELZuXUxXhYDAJeD/4tTQjphYsOgiHzbEaHO','2026-04-11 10:37:09','user','5443232134'),(52,'abcde','abcde@gmail.com','$2b$12$10na7JIl7Z4zFILOc1zPTOmhdMglJoEdsoBqLY8RmBp3BimvlzifK','2026-04-11 10:37:48','user','1231234321'),(53,'ganesh','gjawadwar@gmail.com','$2b$12$U0HyoiYYIeUUkDRcs2ptKeX9Yrl2bor4uVTQSuuPskJZBwmw2ChBW','2026-04-11 10:41:17','lawyer','9881821619'),(55,'Adv. Jay Mapari','ja@gmail.com','scrypt:32768:8:1$dmpnyIOe4VIRBR3t$8f4de5a9b2468f5e74803b7a4f56ca75fe0c82316d2afc2cda78a1263c8a212f5da759abb2f91f8b41493d8bd2458d62eac43444eea4c5f21ba163de24687b0d','2026-04-12 17:47:41','lawyer','8797659834'),(56,'Jay Mapari','maparijay0001@gmail.com','$2b$12$YW3d2p479IyDke.91QkRaOh0hExh987zTBaHgovlCBxLCfLofdF/u','2026-04-15 16:55:33','user','0000000000'),(60,'Jay Mapari','maparijay1000@gmail.com','$2b$12$jHaB7dYgCki4Rl1VMUnVn.AsjgxyyOz76S.Hlh94U1UVlXTe67UdC','2026-04-15 17:14:09','user','0000000000'),(61,'jay mapari','x@gmail.com','$2b$12$1TSW2KpErxIEnn/4mPQq4OaHdIgxhPxtYseBZMAWF2t3UqLzNJQJy','2026-04-15 17:15:51','user','8788348946');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'legal_advisor_db'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -587,4 +658,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2026-03-28  1:14:42
+-- Dump completed on 2026-04-18 23:27:32

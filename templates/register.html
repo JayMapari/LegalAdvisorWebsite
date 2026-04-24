@@ -4,8 +4,8 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<!-- Auth Layout Override - Scroll-Friendly Full Viewport Layout -->
-<div class="relative min-h-screen w-full overflow-x-hidden bg-gradient-to-br from-brand-navy via-slate-900 to-brand-navy" style="z-index: 9999;">
+<!-- Auth Layout Override - Full Viewport Layout -->
+<div class="register-page-shell relative h-[100svh] w-full overflow-hidden bg-gradient-to-br from-brand-navy via-slate-900 to-brand-navy" style="z-index: 9999;">
     
     <!-- Full-Screen Animated Background Image - MATCHING LOGIN PAGE -->
     <div class="absolute inset-0 w-full h-full overflow-hidden" style="z-index: -10;">
@@ -21,28 +21,28 @@
         <div class="absolute inset-0 bg-radial-gradient from-transparent via-black/20 to-black/40"></div>
     </div>
 
-    <!-- Centered Register Card Container - True Center Without Padding Hacks -->
-    <div class="relative min-h-screen flex items-center justify-center px-4 py-10 sm:py-14" style="z-index: 10;">
+    <!-- Centered Register Card Container -->
+    <div class="relative h-full flex items-center justify-center px-4 py-2 sm:py-3" style="z-index: 10;">
         
         <!-- Register Card -->
-        <div class="w-full max-w-md animate-card-float scale-[0.98] register-shell">
+        <div class="w-full max-w-md animate-card-float register-shell">
             
             <!-- Card Glow Effect -->
             <div class="absolute inset-0 bg-brand-gold/20 blur-[60px] rounded-3xl opacity-50 animate-pulse-slow"></div>
             
             <!-- Main Card - Compact Padding -->
-            <div class="relative bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-6 md:p-8 hover:shadow-3xl hover:shadow-brand-gold/10 hover:border-white/30 transition-all duration-700 hover:-translate-y-1">
+            <div class="relative register-card bg-white/10 backdrop-blur-xl rounded-2xl shadow-2xl border border-white/20 p-5 md:p-6 hover:shadow-3xl hover:shadow-brand-gold/10 hover:border-white/30 transition-all duration-700 hover:-translate-y-1">
                 
                 <!-- Logo -->
-                <div class="w-14 h-14 bg-gradient-to-br from-brand-gold to-amber-500 rounded-xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-brand-gold/30 animate-fade-in-up">
+                <div class="w-14 h-14 bg-gradient-to-br from-brand-gold to-amber-500 rounded-xl flex items-center justify-center mx-auto mb-4 shadow-lg shadow-brand-gold/30 animate-fade-in-up">
                     <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3"></path>
                     </svg>
                 </div>
 
                 <!-- Form Header -->
-                <div class="text-center mb-6 animate-fade-in-up" style="animation-delay: 0.1s;">
-                    <h2 class="font-serif text-2xl md:text-3xl text-white font-light mb-1">Create Account</h2>
+                <div class="text-center mb-4 animate-fade-in-up" style="animation-delay: 0.1s;">
+                    <h2 class="font-serif text-2xl md:text-[2rem] text-white font-light mb-1">Create Account</h2>
                     <p class="text-slate-300 font-light text-xs">Register to access your legal dashboard</p>
                 </div>
 
@@ -79,7 +79,7 @@
                 {% endif %}
 
                 <!-- Register Form - Reduced Spacing -->
-                <form method="POST" action="/register" class="space-y-4" id="register-form">
+                <form method="POST" action="/register" class="space-y-3.5" id="register-form">
                     
                     <!-- Name Input -->
                     <div class="animate-fade-in-up" style="animation-delay: 0.3s;">
@@ -96,7 +96,7 @@
                                 type="text" 
                                 id="name" 
                                 name="name" 
-                                class="w-full pl-10 pr-3 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all duration-300 text-white placeholder-slate-400 hover:bg-white/10 hover:border-white/20 text-sm"
+                                class="w-full pl-10 pr-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all duration-300 text-white placeholder-slate-400 hover:bg-white/10 hover:border-white/20 text-sm"
                                 placeholder="John Doe"
                                 required
                                 autocomplete="name">
@@ -118,7 +118,7 @@
                                 type="email" 
                                 id="email" 
                                 name="email" 
-                                class="w-full pl-10 pr-3 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all duration-300 text-white placeholder-slate-400 hover:bg-white/10 hover:border-white/20 text-sm"
+                                class="w-full pl-10 pr-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all duration-300 text-white placeholder-slate-400 hover:bg-white/10 hover:border-white/20 text-sm"
                                 placeholder="your@email.com"
                                 required
                                 autocomplete="email">
@@ -140,7 +140,7 @@
                                 type="tel"
                                 id="phone"
                                 name="phone"
-                                class="w-full pl-10 pr-3 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all duration-300 text-white placeholder-slate-400 hover:bg-white/10 hover:border-white/20 text-sm"
+                                class="w-full pl-10 pr-3 py-2 bg-white/5 border border-white/10 rounded-lg focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all duration-300 text-white placeholder-slate-400 hover:bg-white/10 hover:border-white/20 text-sm"
                                 placeholder="Phone Number"
                                 required
                                 autocomplete="tel"
@@ -163,7 +163,7 @@
                                 type="password" 
                                 id="password" 
                                 name="password" 
-                                class="w-full pl-10 pr-10 py-2.5 bg-white/5 border border-white/10 rounded-lg focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all duration-300 text-white placeholder-slate-400 hover:bg-white/10 hover:border-white/20 text-sm"
+                                class="w-full pl-10 pr-10 py-2 bg-white/5 border border-white/10 rounded-lg focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all duration-300 text-white placeholder-slate-400 hover:bg-white/10 hover:border-white/20 text-sm"
                                 placeholder="••••••••"
                                 required
                                 autocomplete="new-password">
@@ -200,7 +200,7 @@
                     <button 
                         type="submit" 
                         id="submit-btn"
-                        class="btn-scale w-full px-6 py-3 bg-gradient-to-r from-brand-gold to-amber-500 text-white font-semibold rounded-lg hover:from-brand-gold hover:to-amber-600 shadow-lg shadow-brand-gold/30 transition-all duration-300 flex items-center justify-center gap-2 animate-fade-in-up"
+                        class="btn-scale w-full px-6 py-2.5 bg-gradient-to-r from-brand-gold to-amber-500 text-white font-semibold rounded-lg hover:from-brand-gold hover:to-amber-600 shadow-lg shadow-brand-gold/30 transition-all duration-300 flex items-center justify-center gap-2 animate-fade-in-up"
                         style="animation-delay: 0.7s;">
                         <span id="btn-text">Create Account</span>
                         <svg id="btn-spinner" class="animate-spin w-4 h-4 hidden" fill="none" viewBox="0 0 24 24">
@@ -220,7 +220,7 @@
 
                     <a
                         href="/login/google"
-                        class="btn-scale w-full px-6 py-3 bg-white/95 text-slate-800 font-semibold rounded-lg hover:bg-white shadow-lg transition-all duration-300 flex items-center justify-center gap-3 animate-fade-in-up border border-white/30"
+                        class="btn-scale w-full px-6 py-2.5 bg-white/95 text-slate-800 font-semibold rounded-lg hover:bg-white shadow-lg transition-all duration-300 flex items-center justify-center gap-3 animate-fade-in-up border border-white/30"
                         style="animation-delay: 0.75s;">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" aria-hidden="true">
                             <path fill="#EA4335" d="M12 10.2v3.9h5.4c-.24 1.26-.96 2.33-2.04 3.05l3.3 2.56c1.92-1.77 3.03-4.37 3.03-7.45 0-.72-.06-1.41-.18-2.06H12z"/>
@@ -244,7 +244,7 @@
                 </form>
 
                 <!-- Login Link -->
-                <div class="mt-6 text-center animate-fade-in-up" style="animation-delay: 0.9s;">
+                <div class="mt-4 text-center animate-fade-in-up" style="animation-delay: 0.9s;">
                     <p class="text-xs text-slate-300">
                         Already have an account?
                         <a href="/login" class="text-brand-gold hover:text-amber-400 font-semibold transition-colors duration-300">
@@ -317,33 +317,61 @@ document.addEventListener('DOMContentLoaded', function() {
             this.parentElement.classList.remove('scale-[1.02]');
         });
     });
+
+    // Desktop auto-fit: keep full register card visible in one frame
+    const registerShell = document.querySelector('.register-shell');
+    const registerCard = document.querySelector('.register-card');
+
+    function fitRegisterCard() {
+        if (!registerShell || !registerCard) return;
+
+        if (window.innerWidth < 1024) {
+            registerShell.style.setProperty('--fit-scale', '1');
+            return;
+        }
+
+        const viewportHeight = window.innerHeight;
+        const safePadding = 12; // top+bottom breathing room
+        const rawScale = (viewportHeight - safePadding) / registerCard.offsetHeight;
+        const clampedScale = Math.max(0.72, Math.min(1, rawScale));
+        registerShell.style.setProperty('--fit-scale', clampedScale.toFixed(3));
+    }
+
+    fitRegisterCard();
+    window.addEventListener('resize', fitRegisterCard);
+    window.addEventListener('load', fitRegisterCard);
 });
 </script>
 
 <!-- Custom Styles -->
 <style>
 /* Allow longer auth forms to scroll cleanly */
-body {
-    overflow-x: hidden;
-    overflow-y: auto;
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+main {
+    height: 100svh;
+    overflow: hidden;
 }
 
 /* Ken Burns Effect - 10 Second Smooth Loop */
 @keyframes kenBurns {
     0% {
-        transform: scale(1) translate(0, 0);
+        transform: scale(1.12) translate(0, 0);
     }
     25% {
-        transform: scale(1.05) translate(-1%, -1%);
+        transform: scale(1.16) translate(-0.6%, -0.6%);
     }
     50% {
-        transform: scale(1.1) translate(0, 0);
+        transform: scale(1.2) translate(0, 0);
     }
     75% {
-        transform: scale(1.05) translate(1%, 1%);
+        transform: scale(1.16) translate(0.6%, 0.6%);
     }
     100% {
-        transform: scale(1) translate(0, 0);
+        transform: scale(1.12) translate(0, 0);
     }
 }
 
@@ -402,6 +430,10 @@ body {
 
 .register-shell {
     margin: 0 auto;
+    --fit-scale: 1;
+    transform: scale(var(--fit-scale));
+    transform-origin: center;
+    will-change: transform;
 }
 
 /* Gradient Text */
@@ -449,6 +481,22 @@ input:focus {
 
 /* Mobile Responsiveness */
 @media (max-width: 640px) {
+    html, body {
+        overflow-y: auto;
+    }
+
+    main {
+        height: auto;
+        min-height: 100svh;
+        overflow: visible;
+    }
+
+    .register-page-shell {
+        min-height: 100svh;
+        height: auto;
+        overflow-y: auto;
+    }
+
     .p-6.md\:p-8 {
         padding: 1.25rem;
     }
@@ -466,6 +514,17 @@ input:focus {
         max-width: 100%;
         transform: none !important;
     }
+}
+
+/* Desktop fit: keep the full card in one frame */
+@media (min-width: 1024px) {
+    .register-shell {
+        animation: none;
+    }
+}
+
+@media (min-width: 1024px) and (max-height: 800px) {
+    .register-shell { --fit-scale: 0.82; }
 }
 </style>
 {% endblock %}

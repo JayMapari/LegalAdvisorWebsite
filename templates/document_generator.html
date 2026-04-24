@@ -56,22 +56,34 @@
                             <label for="doc_type" class="block text-sm font-semibold text-brand-navy mb-3">
                                 Document Type <span class="text-red-500">*</span>
                             </label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                                    <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                                    </svg>
-                                </div>
-                                <select 
-                                    id="doc_type" 
-                                    name="doc_type" 
-                                    class="w-full pl-12 pr-4 py-3 rounded-lg border border-slate-300 focus:border-brand-gold focus:ring-2 focus:ring-brand-gold/20 outline-none transition-all font-light text-slate-700 bg-white"
-                                    required>
+                            <div class="custom-dropdown" id="doc_type_dropdown">
+                                <select id="doc_type" name="doc_type" class="sr-native-select" required>
                                     <option value="">Select Document Type</option>
-    <option value="consumer">Consumer Complaint</option>
-    <option value="fir">FIR Draft</option>
-    <option value="notice">Legal Notice</option>
+                                    <option value="consumer">Consumer Complaint</option>
+                                    <option value="fir">FIR Draft</option>
+                                    <option value="notice">Legal Notice</option>
                                 </select>
+
+                                <button type="button" class="custom-dropdown-trigger" id="doc_type_trigger" aria-haspopup="listbox" aria-expanded="false">
+                                    <span class="custom-dropdown-icon">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                        </svg>
+                                    </span>
+                                    <span class="custom-dropdown-label" data-dropdown-label>Select Document Type</span>
+                                    <span class="custom-dropdown-chevron" aria-hidden="true">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                        </svg>
+                                    </span>
+                                </button>
+
+                                <div class="custom-dropdown-menu hidden" role="listbox" aria-labelledby="doc_type_trigger">
+                                    <button type="button" class="custom-dropdown-option is-placeholder" data-value="">Select Document Type</button>
+                                    <button type="button" class="custom-dropdown-option" data-value="consumer">Consumer Complaint</button>
+                                    <button type="button" class="custom-dropdown-option" data-value="fir">FIR Draft</button>
+                                    <button type="button" class="custom-dropdown-option" data-value="notice">Legal Notice</button>
+                                </div>
                             </div>
                             <p class="text-xs text-slate-500 mt-2">Choose the appropriate legal document type</p>
                         </div>
@@ -390,6 +402,74 @@ document.addEventListener('DOMContentLoaded', function() {
             btnSpinner.classList.remove('hidden');
         });
     }
+
+    // Custom document type dropdown
+    const docTypeDropdown = document.getElementById('doc_type_dropdown');
+    if (docTypeDropdown) {
+        const nativeSelect = docTypeDropdown.querySelector('#doc_type');
+        const trigger = docTypeDropdown.querySelector('#doc_type_trigger');
+        const label = docTypeDropdown.querySelector('[data-dropdown-label]');
+        const menu = docTypeDropdown.querySelector('.custom-dropdown-menu');
+        const options = docTypeDropdown.querySelectorAll('.custom-dropdown-option');
+
+        function closeDropdown() {
+            trigger.setAttribute('aria-expanded', 'false');
+            menu.classList.add('hidden');
+            docTypeDropdown.classList.remove('is-open');
+        }
+
+        function openDropdown() {
+            trigger.setAttribute('aria-expanded', 'true');
+            menu.classList.remove('hidden');
+            docTypeDropdown.classList.add('is-open');
+        }
+
+        function setValue(value, text) {
+            nativeSelect.value = value;
+            label.textContent = text;
+
+            options.forEach(function(optionBtn) {
+                const isActive = optionBtn.dataset.value === value;
+                optionBtn.classList.toggle('is-active', isActive);
+            });
+        }
+
+        trigger.addEventListener('click', function() {
+            if (menu.classList.contains('hidden')) {
+                openDropdown();
+            } else {
+                closeDropdown();
+            }
+        });
+
+        options.forEach(function(optionBtn) {
+            optionBtn.addEventListener('click', function() {
+                const value = optionBtn.dataset.value || '';
+                const text = optionBtn.textContent.trim();
+                setValue(value, text);
+                closeDropdown();
+                nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));
+            });
+        });
+
+        document.addEventListener('click', function(event) {
+            if (!docTypeDropdown.contains(event.target)) {
+                closeDropdown();
+            }
+        });
+
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeDropdown();
+            }
+        });
+
+        // Initialize from current select value (supports server re-render)
+        if (nativeSelect.value) {
+            const selectedOption = nativeSelect.options[nativeSelect.selectedIndex];
+            setValue(nativeSelect.value, selectedOption.textContent.trim());
+        }
+    }
 });
 
 // Copy document to clipboard
@@ -522,6 +602,108 @@ function downloadPDF() {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+}
+
+.sr-native-select {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+}
+
+.custom-dropdown {
+    position: relative;
+}
+
+.custom-dropdown-trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.9rem 1rem;
+    border-radius: 0.9rem;
+    border: 1px solid rgba(148, 163, 184, 0.5);
+    background: linear-gradient(to bottom, #ffffff, #f8fafc);
+    color: #334155;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.05);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.custom-dropdown-icon {
+    color: #94a3b8;
+    display: inline-flex;
+}
+
+.custom-dropdown-label {
+    flex: 1;
+    text-align: left;
+    font-weight: 400;
+}
+
+.custom-dropdown-chevron {
+    color: #64748b;
+    display: inline-flex;
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.custom-dropdown:hover .custom-dropdown-trigger {
+    border-color: #94a3b8;
+}
+
+.custom-dropdown:focus-within .custom-dropdown-trigger,
+.custom-dropdown.is-open .custom-dropdown-trigger {
+    border-color: rgba(212, 175, 55, 0.85);
+    box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.15);
+}
+
+.custom-dropdown:focus-within .custom-dropdown-icon,
+.custom-dropdown:focus-within .custom-dropdown-chevron,
+.custom-dropdown.is-open .custom-dropdown-icon,
+.custom-dropdown.is-open .custom-dropdown-chevron {
+    color: #b5952f;
+}
+
+.custom-dropdown.is-open .custom-dropdown-chevron {
+    transform: rotate(180deg);
+}
+
+.custom-dropdown-menu {
+    position: absolute;
+    z-index: 40;
+    width: 100%;
+    margin-top: 0.45rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.85rem;
+    overflow: hidden;
+    background: #ffffff;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.14);
+}
+
+.custom-dropdown-option {
+    width: 100%;
+    border: 0;
+    background: #ffffff;
+    color: #334155;
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+.custom-dropdown-option:hover {
+    background: #f8fafc;
+    color: #0f172a;
+}
+
+.custom-dropdown-option.is-active {
+    background: linear-gradient(90deg, #0f172a 0%, #d4af37 100%);
+    color: #ffffff;
+}
+
+.custom-dropdown-option.is-placeholder {
+    color: #64748b;
 }
 
 #document-preview {
